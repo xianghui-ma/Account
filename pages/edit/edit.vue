@@ -1,6 +1,8 @@
 <template>
 	<view class="edit">
-		
+		<view class="">
+			
+		</view>
 	</view>
 </template>
 

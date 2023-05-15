@@ -22,7 +22,17 @@
   "libVersion": "2.32.0",
   "appid": "touristappid",
   "projectname": "Account",
-  "condition": {},
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/edit/edit",
+          "pathName": "pages/edit/edit",
+          "query": ""
+        }
+      ]
+    }
+  },
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2

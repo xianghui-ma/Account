@@ -17338,6 +17338,12 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _default = {
   "pages": [{
+    "path": "pages/edit/edit",
+    "style": {
+      "navigationBarTitleText": "编辑账本",
+      "enablePullDownRefresh": false
+    }
+  }, {
     "path": "pages/index/index",
     "style": {
       "navigationBarTitleText": "旅行小账本",
@@ -17352,12 +17358,6 @@ var _default = {
     }
   }, {
     "path": "pages/columnlist/columnlist",
-    "style": {
-      "navigationBarTitleText": "",
-      "enablePullDownRefresh": false
-    }
-  }, {
-    "path": "pages/edit/edit",
     "style": {
       "navigationBarTitleText": "",
       "enablePullDownRefresh": false
