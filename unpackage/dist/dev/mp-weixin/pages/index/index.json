@@ -1,4 +1,6 @@
 {
-  "navigationBarTitleText": "uni-app",
+  "navigationBarTitleText": "旅行小账本",
+  "navigationBarBackgroundColor": "#F8F8F8",
+  "navigationBarTextStyle": "black",
   "usingComponents": {}
 }

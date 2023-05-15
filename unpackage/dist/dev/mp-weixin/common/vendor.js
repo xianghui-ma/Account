@@ -17340,14 +17340,49 @@ var _default = {
   "pages": [{
     "path": "pages/index/index",
     "style": {
-      "navigationBarTitleText": "uni-app"
+      "navigationBarTitleText": "旅行小账本",
+      "navigationBarBackgroundColor": "#F8F8F8",
+      "navigationBarTextStyle": "black"
+    }
+  }, {
+    "path": "pages/rowlist/rowlist",
+    "style": {
+      "navigationBarTitleText": "帐本列表",
+      "enablePullDownRefresh": false
+    }
+  }, {
+    "path": "pages/columnlist/columnlist",
+    "style": {
+      "navigationBarTitleText": "",
+      "enablePullDownRefresh": false
+    }
+  }, {
+    "path": "pages/edit/edit",
+    "style": {
+      "navigationBarTitleText": "",
+      "enablePullDownRefresh": false
+    }
+  }, {
+    "path": "pages/detail/detail",
+    "style": {
+      "navigationBarTitleText": "",
+      "enablePullDownRefresh": false
+    }
+  }, {
+    "path": "pages/payments/payments",
+    "style": {
+      "navigationBarTitleText": "",
+      "enablePullDownRefresh": false
+    }
+  }, {
+    "path": "pages/proportion/proportion",
+    "style": {
+      "navigationBarTitleText": "",
+      "enablePullDownRefresh": false
     }
   }],
   "globalStyle": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "navigationBarBackgroundColor": "#35363a"
   },
   "uniIdRouter": {}
 };
