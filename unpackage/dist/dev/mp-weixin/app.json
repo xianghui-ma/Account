@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/columnlist/columnlist",
+    "pages/detail/detail",
     "pages/index/index",
     "pages/rowlist/rowlist",
+    "pages/columnlist/columnlist",
     "pages/edit/edit",
-    "pages/detail/detail",
     "pages/payments/payments",
     "pages/proportion/proportion"
   ],

@@ -17338,9 +17338,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _default = {
   "pages": [{
-    "path": "pages/columnlist/columnlist",
+    "path": "pages/detail/detail",
     "style": {
-      "navigationBarTitleText": "账本列表",
+      "navigationBarTitleText": "江财一日游",
       "enablePullDownRefresh": false
     }
   }, {
@@ -17357,15 +17357,15 @@ var _default = {
       "enablePullDownRefresh": false
     }
   }, {
-    "path": "pages/edit/edit",
+    "path": "pages/columnlist/columnlist",
     "style": {
-      "navigationBarTitleText": "编辑账本",
+      "navigationBarTitleText": "账本列表",
       "enablePullDownRefresh": false
     }
   }, {
-    "path": "pages/detail/detail",
+    "path": "pages/edit/edit",
     "style": {
-      "navigationBarTitleText": "",
+      "navigationBarTitleText": "编辑账本",
       "enablePullDownRefresh": false
     }
   }, {
