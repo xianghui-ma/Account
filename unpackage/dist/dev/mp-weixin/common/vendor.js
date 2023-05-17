@@ -17338,9 +17338,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _default = {
   "pages": [{
-    "path": "pages/detail/detail",
+    "path": "pages/proportion/proportion",
     "style": {
-      "navigationBarTitleText": "江财一日游",
+      "navigationBarTitleText": "",
       "enablePullDownRefresh": false
     }
   }, {
@@ -17369,13 +17369,13 @@ var _default = {
       "enablePullDownRefresh": false
     }
   }, {
-    "path": "pages/payments/payments",
+    "path": "pages/detail/detail",
     "style": {
-      "navigationBarTitleText": "",
+      "navigationBarTitleText": "江财一日游",
       "enablePullDownRefresh": false
     }
   }, {
-    "path": "pages/proportion/proportion",
+    "path": "pages/payments/payments",
     "style": {
       "navigationBarTitleText": "",
       "enablePullDownRefresh": false
