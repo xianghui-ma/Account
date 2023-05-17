@@ -17338,9 +17338,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _default = {
   "pages": [{
-    "path": "pages/proportion/proportion",
+    "path": "pages/payments/payments",
     "style": {
-      "navigationBarTitleText": "",
+      "navigationBarTitleText": "新增消费",
       "enablePullDownRefresh": false
     }
   }, {
@@ -17375,7 +17375,7 @@ var _default = {
       "enablePullDownRefresh": false
     }
   }, {
-    "path": "pages/payments/payments",
+    "path": "pages/proportion/proportion",
     "style": {
       "navigationBarTitleText": "",
       "enablePullDownRefresh": false

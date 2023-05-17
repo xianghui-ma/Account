@@ -1,12 +1,12 @@
 {
   "pages": [
-    "pages/proportion/proportion",
+    "pages/payments/payments",
     "pages/index/index",
     "pages/rowlist/rowlist",
     "pages/columnlist/columnlist",
     "pages/edit/edit",
     "pages/detail/detail",
-    "pages/payments/payments"
+    "pages/proportion/proportion"
   ],
   "subPackages": [],
   "window": {
