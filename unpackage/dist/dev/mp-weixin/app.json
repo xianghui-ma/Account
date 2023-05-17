@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/edit/edit",
+    "pages/columnlist/columnlist",
     "pages/index/index",
     "pages/rowlist/rowlist",
-    "pages/columnlist/columnlist",
+    "pages/edit/edit",
     "pages/detail/detail",
     "pages/payments/payments",
     "pages/proportion/proportion"

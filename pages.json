@@ -1,10 +1,10 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-		    "path" : "pages/edit/edit",
+		    "path" : "pages/columnlist/columnlist",
 		    "style" :                                                                                    
 		    {
-		        "navigationBarTitleText": "编辑账本",
+		        "navigationBarTitleText": "账本列表",
 		        "enablePullDownRefresh": false
 		    }
 		    
@@ -25,25 +25,25 @@
                 "enablePullDownRefresh": false
             }
             
-        }
-        ,{
-            "path" : "pages/columnlist/columnlist",
+        },
+        // {
+        //     "path" : "pages/columnlist/columnlist",
+        //     "style" :                                                                                    
+        //     {
+        //         "navigationBarTitleText": "账本列表",
+        //         "enablePullDownRefresh": false
+        //     }
+            
+        // },
+        {
+            "path" : "pages/edit/edit",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "编辑账本",
                 "enablePullDownRefresh": false
             }
             
         }
-        // ,{
-        //     "path" : "pages/edit/edit",
-        //     "style" :                                                                                    
-        //     {
-        //         "navigationBarTitleText": "编辑账本",
-        //         "enablePullDownRefresh": false
-        //     }
-            
-        // }
         ,{
             "path" : "pages/detail/detail",
             "style" :                                                                                    
