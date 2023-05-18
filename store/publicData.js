@@ -3,8 +3,8 @@ export default{
     namespaced: true,
     state: {
 		openId: '',
-		appId: 'wx2b482e8d9a92ad01',
-		appSecret: 'adc2aae04d6e1dfad6780f94884a0e54',
+		appId: '',
+		appSecret: '',
     },
 	actions: {
 		storeOpenId(context, data){
