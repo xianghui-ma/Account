@@ -5,6 +5,7 @@
 </template>
 
 <script>
+	import {mapActions, mapState} from 'vuex';
 	export default {
 		name: 'index',
 		data() {
@@ -12,14 +13,61 @@
 				
 			}
 		},
+		computed: {
+			...mapState('publicData', ['appId', 'appSecret', 'openId'])
+		},
 		onLoad() {
-
+			this.getOpenId();
 		},
 		methods: {
+			...mapActions('publicData', ['storeOpenId']),
+			// 页面跳转
 			enterAccount(){
 				uni.redirectTo({
 					url:'/pages/rowlist/rowlist',
+				});
+			},
+			// 自动获取openid登录
+			getOpenId(){
+				uni.getStorage({
+					key: 'openId',
+					success: (res)=>{
+						this.storeOpenId(res.data);
+					},
+					fail: ()=>{
+						uni.showLoading({
+							title: '配置用户数据',
+							mask: true
+						});
+						uni.login({
+							"provider": "weixin",
+							"onlyAuthorize": true,
+							success: (event)=>{
+								uni.request({
+								    url: `https://api.weixin.qq.com/sns/jscode2session?appid=${this.appId}&secret=${this.appSecret}&js_code=${event.code}&grant_type=authorization_code`,
+								    success: (res)=>{
+										this.storeOpenId(res.data.openid);
+										uni.hideLoading();
+										this.cacheOpenId();
+								    }
+								});
+							},
+							fail: (err)=>{
+								uni.hideLoading()
+								uni.showToast({
+									title: '数据配置失败'
+								})
+						    }
+						});
+					}
 				})
+			},
+			// 缓存openid
+			cacheOpenId(){
+				uni.setStorage({
+					key: 'openId',
+					data: this.openId
+				});
 			}
 		}
 	}

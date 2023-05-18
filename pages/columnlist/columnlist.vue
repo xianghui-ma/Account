@@ -1,7 +1,7 @@
 <template>
 	<view class="columnlist">
 		<view class="iconBox">
-			<text class="toggleIcon"></text>
+			<text class="toggleIcon" @click="gotoRowlist"></text>
 		</view>
 		<view class="listArea">
 			<view class="time">
@@ -25,7 +25,7 @@
 				</view>
 			</view>
 			<view class="account">
-				<view class="addAccount">
+				<view class="addAccount" @click="gotoEdit">
 					<view class="addMark">+</view>
 					<view class="explain">创建一个新帐本</view>
 				</view>
@@ -72,6 +72,18 @@
 <script>
 	export default {
 		name: 'columnlist',
+		methods: {
+			gotoRowlist(){
+				uni.redirectTo({
+					url: '/pages/rowlist/rowlist'
+				})
+			},
+			gotoEdit(){
+				uni.redirectTo({
+					url: '/pages/edit/edit'
+				})
+			}
+		},
 		data() {
 			return {
 				

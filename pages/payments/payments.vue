@@ -5,6 +5,9 @@
 			<text id="income" @click="getType" v-bind:class="income && 'activeIncome'">收入</text>
 			<picker mode="date" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">选择日期</picker>
 		</view>
+		<view class="name">
+			<input type="text" placeholder="收支名">
+		</view>
 		<view class="inputNum">
 			<input type="text" placeholder="0.0元">
 		</view>
@@ -84,7 +87,7 @@
 				background-color: #fc685b;
 			}
 		}
-		.inputNum{
+		.inputNum, .name{
 			padding: 20rpx 40rpx;
 			input{
 				border: 2rpx solid #aaa;

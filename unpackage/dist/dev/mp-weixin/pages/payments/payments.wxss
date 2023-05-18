@@ -48,10 +48,10 @@
   color: #fff;
   background-color: #fc685b;
 }
-.payments .inputNum {
+.payments .inputNum, .payments .name {
   padding: 20rpx 40rpx;
 }
-.payments .inputNum input {
+.payments .inputNum input, .payments .name input {
   border: 2rpx solid #aaa;
   border-radius: 10rpx;
   padding: 20rpx;

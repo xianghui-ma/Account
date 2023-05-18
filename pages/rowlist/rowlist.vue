@@ -1,9 +1,9 @@
 <template>
 	<view class="rowlist">
-		<text class="toggleIcon"></text>
+		<text class="toggleIcon" @click="gotoColumnlist"></text>
 		<swiper class="accountList" previous-margin="75rpx" next-margin="75rpx">
 			<swiper-item class="createAccount">
-				<view class="content">
+				<view class="content" @click="gotoEdit">
 					<view class="slogan">
 						<text>旅行中的每一笔开支\n都有独特的意义！</text>
 					</view>
@@ -26,7 +26,7 @@
 					<image src="https://mp-931dc76a-090b-4f2c-809b-bafd045c55e6.cdn.bspapp.com/cloudstorage/1cbb2bcc-82bb-4abe-9c4e-9a7acee5e9b1.png" mode="aspectFill" class="accountImg"/>
 					<view class="accountTitle"><text>江财一日游</text></view>
 					<view class="accountDate"><text>2023-02-21</text></view>
-					<view class="editAccount">
+					<view class="editAccount" @click="gotoPayments">
 						<text class="editIcon"></text>
 					</view>
 				</view>
@@ -37,6 +37,23 @@
 
 <script>
 	export default {
+		methods: {
+			gotoColumnlist(){
+				uni.redirectTo({
+					url: '/pages/columnlist/columnlist'
+				})
+			},
+			gotoEdit(){
+				uni.redirectTo({
+					url: '/pages/edit/edit'
+				})
+			},
+			gotoPayments(){
+				uni.redirectTo({
+					url: '/pages/payments/payments'
+				})
+			}
+		},
 		data() {
 			return {
 				

@@ -1,16 +1,17 @@
 {
   "pages": [
-    "pages/payments/payments",
     "pages/index/index",
     "pages/rowlist/rowlist",
     "pages/columnlist/columnlist",
     "pages/edit/edit",
     "pages/detail/detail",
+    "pages/payments/payments",
     "pages/proportion/proportion"
   ],
   "subPackages": [],
   "window": {
-    "navigationBarBackgroundColor": "#35363a"
+    "navigationBarBackgroundColor": "#35363a",
+    "animationType": "none"
   },
   "usingComponents": {}
 }
