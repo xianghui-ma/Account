@@ -17569,71 +17569,7 @@ uni.addInterceptor({
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */,
-/* 85 */,
-/* 86 */,
-/* 87 */,
-/* 88 */,
-/* 89 */,
-/* 90 */,
-/* 91 */,
-/* 92 */,
-/* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */,
-/* 97 */,
-/* 98 */,
-/* 99 */,
-/* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */,
-/* 104 */,
-/* 105 */,
-/* 106 */,
-/* 107 */,
-/* 108 */,
-/* 109 */,
-/* 110 */
+/* 46 */
 /*!*********************************!*\
   !*** F:/Account/store/index.js ***!
   \*********************************/
@@ -17649,8 +17585,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 25));
-var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 111));
-var _publicData = _interopRequireDefault(__webpack_require__(/*! ./publicData.js */ 112));
+var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 47));
+var _publicData = _interopRequireDefault(__webpack_require__(/*! ./publicData.js */ 48));
 _vue.default.use(_vuex.default);
 
 // 创建store
@@ -17662,7 +17598,7 @@ var _default = new _vuex.default.Store({
 exports.default = _default;
 
 /***/ }),
-/* 111 */
+/* 47 */
 /*!**************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vuex3/dist/vuex.common.js ***!
   \**************************************************************************************/
@@ -18918,7 +18854,7 @@ module.exports = index_cjs;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 3)))
 
 /***/ }),
-/* 112 */
+/* 48 */
 /*!**************************************!*\
   !*** F:/Account/store/publicData.js ***!
   \**************************************/
@@ -18937,8 +18873,8 @@ var _default = {
   namespaced: true,
   state: {
     openId: '',
-    appId: '',
-    appSecret: ''
+    appId: 'wx2b482e8d9a92ad01',
+    appSecret: '981dd17896416889f510c7c9eda2d48a'
   },
   actions: {
     storeOpenId: function storeOpenId(context, data) {

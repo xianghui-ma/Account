@@ -1,0 +1,24 @@
+// 文档教程: https://uniapp.dcloud.net.cn/uniCloud/schema
+{
+	"bsonType": "object",
+	"required": ["openid", "url"],
+	"permission": {
+		"read": false,
+		"create": false,
+		"update": false,
+		"delete": false
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"openid": {
+			"description": "用户的微信openid",
+			"bsonType": "string"
+		},
+		"url": {
+			"description": "封面url",
+			"bsonType": "string"
+		}
+	}
+}

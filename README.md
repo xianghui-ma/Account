@@ -9,5 +9,18 @@
 cover 账本封面数据表，用于存储用户的账本封面信息
 	-_id
 	-openid
-	-
+	-url	封面url
+```
+
+```
+account 账本数据表，用于存储账本信息
+	-_id
+	-openid
+	-cover			账本封面url
+	-accountTitle	账本名
+	-date			账本的创建时间
+	-itemList		收支项目列表
+		-itemName	收支项目名
+		-money		收支金额
+		-note		收支备注
 ```
