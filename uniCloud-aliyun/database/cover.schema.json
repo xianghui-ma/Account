@@ -1,7 +1,7 @@
 // 文档教程: https://uniapp.dcloud.net.cn/uniCloud/schema
 {
 	"bsonType": "object",
-	"required": ["openid", "url"],
+	"required": ["url", "index"],
 	"permission": {
 		"read": false,
 		"create": false,
@@ -19,6 +19,10 @@
 		"url": {
 			"description": "封面url",
 			"bsonType": "string"
+		},
+		"index": {
+			"description": "封面编号",
+			"bsonType": "int"
 		}
 	}
 }

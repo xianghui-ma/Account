@@ -18,9 +18,18 @@
 		},
 		onLoad() {
 			this.getOpenId();
+			this.getInnerCover();
 		},
 		methods: {
-			...mapActions('publicData', ['storeOpenId']),
+			...mapActions('publicData', ['storeOpenId', 'storeInnerCover']),
+			// 获取所有内置封面的url
+			getInnerCover(){
+				uniCloud.callFunction({
+					name: "getInnerCover"
+				}).then((res)=>{
+					this.storeInnerCover(res.result);
+				});
+			},
 			// 页面跳转
 			enterAccount(){
 				uni.redirectTo({

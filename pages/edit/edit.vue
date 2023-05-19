@@ -8,10 +8,10 @@
 				<text>选择封面</text>
 			</view>
 			<view class="coverList">
-				<view class="addCover innerCover">
+				<view class="addCover innerCover" @click="uploadCover">
 					<text>更多封面</text>
 				</view>
-				<view class="innerCover" v-for="link in innerCoverUrl" :key="link" :style="{backgroundImage: `url(${link})`}">
+				<view class="innerCover" @click="" v-for="cover in innerCover" :key="cover._id" :style="{backgroundImage: `url(${cover.url})`}">
 					<icon type="success" size="18"/>
 				</view>
 			</view>
@@ -24,12 +24,50 @@
 </template>
 
 <script>
+	import {mapState} from 'vuex';
 	export default {
 		name: 'edit',
+		computed: {
+			...mapState('publicData', ['innerCover', 'openId']),
+		},
 		data() {
 			return {
-				innerCoverUrl: ['https://mp-931dc76a-090b-4f2c-809b-bafd045c55e6.cdn.bspapp.com/cloudstorage/806b95ea-4433-4093-b61e-06c4aaaa8b7d.png', 'https://mp-931dc76a-090b-4f2c-809b-bafd045c55e6.cdn.bspapp.com/cloudstorage/456ecbaa-33be-4636-ad49-8f28743038db.png', 'https://mp-931dc76a-090b-4f2c-809b-bafd045c55e6.cdn.bspapp.com/cloudstorage/347c6eed-994a-4e7a-ac4e-16739747af3a.png', 'https://mp-931dc76a-090b-4f2c-809b-bafd045c55e6.cdn.bspapp.com/cloudstorage/763f0033-e24e-4bb1-a2ea-67d1661463ac.png', 'https://mp-931dc76a-090b-4f2c-809b-bafd045c55e6.cdn.bspapp.com/cloudstorage/e1d39483-616a-4104-91e7-9f8b2463cce5.png']
+				
 			};
+		},
+		methods: {
+			
+			uploadCover(){
+				uni.chooseImage({
+					count: 1,
+					success: (chooseImageRes) => {
+						let filePath = chooseImageRes.tempFilePaths[0]
+						uniCloud.uploadFile({
+							filePath: filePath,
+							fileType: 'image',
+							cloudPath: `${Date.now()}.${filePath.split('.')[1]}`,
+							success: (res) => {
+								this.storeUrlToCloud(res.fileID);
+							},
+							fail: (res) => {
+								uni.showToast({
+									title: '图片上传失败'
+								})
+							}
+						})
+					}
+				});
+			},
+			storeUrlToCloud(url){
+				let res = uniCloud.callFunction({
+					name: 'storeCoverUrl',
+					data: {
+						openid: this.openId,
+						url
+					}
+				});
+				console.log(res);
+			}
 		}
 	}
 </script>

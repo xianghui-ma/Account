@@ -136,7 +136,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
+/* WEBPACK VAR INJECTION */(function(uniCloud, uni) {
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
@@ -155,8 +155,18 @@ var _default = {
   computed: _objectSpread({}, (0, _vuex.mapState)('publicData', ['appId', 'appSecret', 'openId'])),
   onLoad: function onLoad() {
     this.getOpenId();
+    this.getInnerCover();
   },
-  methods: _objectSpread(_objectSpread({}, (0, _vuex.mapActions)('publicData', ['storeOpenId'])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0, _vuex.mapActions)('publicData', ['storeOpenId', 'storeInnerCover'])), {}, {
+    // 获取所有内置封面的url
+    getInnerCover: function getInnerCover() {
+      var _this = this;
+      uniCloud.callFunction({
+        name: "getInnerCover"
+      }).then(function (res) {
+        _this.storeInnerCover(res.result);
+      });
+    },
     // 页面跳转
     enterAccount: function enterAccount() {
       uni.redirectTo({
@@ -165,11 +175,11 @@ var _default = {
     },
     // 自动获取openid登录
     getOpenId: function getOpenId() {
-      var _this = this;
+      var _this2 = this;
       uni.getStorage({
         key: 'openId',
         success: function success(res) {
-          _this.storeOpenId(res.data);
+          _this2.storeOpenId(res.data);
         },
         fail: function fail() {
           uni.showLoading({
@@ -181,11 +191,11 @@ var _default = {
             "onlyAuthorize": true,
             success: function success(event) {
               uni.request({
-                url: "https://api.weixin.qq.com/sns/jscode2session?appid=".concat(_this.appId, "&secret=").concat(_this.appSecret, "&js_code=").concat(event.code, "&grant_type=authorization_code"),
+                url: "https://api.weixin.qq.com/sns/jscode2session?appid=".concat(_this2.appId, "&secret=").concat(_this2.appSecret, "&js_code=").concat(event.code, "&grant_type=authorization_code"),
                 success: function success(res) {
-                  _this.storeOpenId(res.data.openid);
+                  _this2.storeOpenId(res.data.openid);
                   uni.hideLoading();
-                  _this.cacheOpenId();
+                  _this2.cacheOpenId();
                 }
               });
             },
@@ -209,7 +219,7 @@ var _default = {
   })
 };
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/uni-cloud/dist/index.js */ 27)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

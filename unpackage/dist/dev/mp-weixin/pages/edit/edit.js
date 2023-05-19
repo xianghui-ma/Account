@@ -136,46 +136,60 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(uni, uniCloud) {
 
-
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+var _vuex = __webpack_require__(/*! vuex */ 47);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var _default = {
   name: 'edit',
+  computed: _objectSpread({}, (0, _vuex.mapState)('publicData', ['innerCover', 'openId'])),
   data: function data() {
-    return {
-      innerCoverUrl: ['https://mp-931dc76a-090b-4f2c-809b-bafd045c55e6.cdn.bspapp.com/cloudstorage/806b95ea-4433-4093-b61e-06c4aaaa8b7d.png', 'https://mp-931dc76a-090b-4f2c-809b-bafd045c55e6.cdn.bspapp.com/cloudstorage/456ecbaa-33be-4636-ad49-8f28743038db.png', 'https://mp-931dc76a-090b-4f2c-809b-bafd045c55e6.cdn.bspapp.com/cloudstorage/347c6eed-994a-4e7a-ac4e-16739747af3a.png', 'https://mp-931dc76a-090b-4f2c-809b-bafd045c55e6.cdn.bspapp.com/cloudstorage/763f0033-e24e-4bb1-a2ea-67d1661463ac.png', 'https://mp-931dc76a-090b-4f2c-809b-bafd045c55e6.cdn.bspapp.com/cloudstorage/e1d39483-616a-4104-91e7-9f8b2463cce5.png']
-    };
+    return {};
+  },
+  methods: {
+    uploadCover: function uploadCover() {
+      var _this = this;
+      uni.chooseImage({
+        count: 1,
+        success: function success(chooseImageRes) {
+          var filePath = chooseImageRes.tempFilePaths[0];
+          uniCloud.uploadFile({
+            filePath: filePath,
+            fileType: 'image',
+            cloudPath: "".concat(Date.now(), ".").concat(filePath.split('.')[1]),
+            success: function success(res) {
+              _this.storeUrlToCloud(res.fileID);
+            },
+            fail: function fail(res) {
+              uni.showToast({
+                title: '图片上传失败'
+              });
+            }
+          });
+        }
+      });
+    },
+    storeUrlToCloud: function storeUrlToCloud(url) {
+      var res = uniCloud.callFunction({
+        name: 'storeCoverUrl',
+        data: {
+          openid: this.openId,
+          url: url
+        }
+      });
+      console.log(res);
+    }
   }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/uni-cloud/dist/index.js */ 27)["default"]))
 
 /***/ }),
 
