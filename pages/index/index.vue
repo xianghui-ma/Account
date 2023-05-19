@@ -25,8 +25,12 @@
 			// 获取所有内置封面的url
 			getInnerCover(){
 				uniCloud.callFunction({
-					name: "getInnerCover"
+					name: "getInnerCover",
+					data: {
+						openid: this.openId
+					}
 				}).then((res)=>{
+					console.log(res.result);
 					this.storeInnerCover(res.result);
 				});
 			},

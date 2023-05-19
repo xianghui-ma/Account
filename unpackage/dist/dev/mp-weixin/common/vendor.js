@@ -18873,8 +18873,8 @@ var _default = {
   namespaced: true,
   state: {
     openId: '',
-    appId: '',
-    appSecret: '',
+    appId: 'wx2b482e8d9a92ad01',
+    appSecret: '981dd17896416889f510c7c9eda2d48a',
     innerCover: null
   },
   actions: {

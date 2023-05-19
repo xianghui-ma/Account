@@ -136,7 +136,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni, uniCloud) {
+/* WEBPACK VAR INJECTION */(function(uniCloud, uni) {
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
@@ -151,11 +151,40 @@ var _default = {
   name: 'edit',
   computed: _objectSpread({}, (0, _vuex.mapState)('publicData', ['innerCover', 'openId'])),
   data: function data() {
-    return {};
+    return {
+      selectedCoverId: '',
+      accountName: ''
+    };
   },
   methods: {
-    uploadCover: function uploadCover() {
+    // 存储账本到account数据表
+    storeAccount: function storeAccount() {
       var _this = this;
+      var targetCover = this.innerCover.filter(function (item) {
+        return item._id === _this.selectedCoverId;
+      })[0];
+      uniCloud.callFunction({
+        name: 'storeAccount',
+        data: {
+          cover: targetCover.url,
+          openid: this.openId,
+          accountTitle: this.accountName,
+          date: new Date(),
+          itemList: {}
+        }
+      });
+    },
+    // 单选封面，并记录所选封面的id
+    selectCover: function selectCover(e) {
+      this.selectedCoverId = e.target.id;
+    },
+    // 更新封面列表
+    updateCoverList: function updateCoverList(newCover) {
+      this.innerCover.unshift(newCover);
+    },
+    // 上传封面图片
+    uploadCover: function uploadCover() {
+      var _this2 = this;
       uni.chooseImage({
         count: 1,
         success: function success(chooseImageRes) {
@@ -165,9 +194,9 @@ var _default = {
             fileType: 'image',
             cloudPath: "".concat(Date.now(), ".").concat(filePath.split('.')[1]),
             success: function success(res) {
-              _this.storeUrlToCloud(res.fileID);
+              _this2.storeUrlToCloud(res.fileID);
             },
-            fail: function fail(res) {
+            fail: function fail() {
               uni.showToast({
                 title: '图片上传失败'
               });
@@ -176,20 +205,34 @@ var _default = {
         }
       });
     },
+    // 将上传封面图片的url存储至cover数据表
     storeUrlToCloud: function storeUrlToCloud(url) {
-      var res = uniCloud.callFunction({
+      var _this3 = this;
+      uniCloud.callFunction({
         name: 'storeCoverUrl',
         data: {
           openid: this.openId,
-          url: url
+          url: url,
+          index: 0
+        },
+        success: function success(res) {
+          _this3.updateCoverList({
+            index: 0,
+            url: url,
+            _id: res.result.id
+          });
+        },
+        fail: function fail() {
+          uni.showToast({
+            title: '图片上传失败'
+          });
         }
       });
-      console.log(res);
     }
   }
 };
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/uni-cloud/dist/index.js */ 27)["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/uni-cloud/dist/index.js */ 27)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

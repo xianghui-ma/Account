@@ -1,0 +1,7 @@
+{
+  "name": "storeAccount",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}

@@ -1,7 +1,7 @@
 <template>
 	<view class="edit">
 		<view class="accountName">
-			<input type="text" placeholder="账本名">
+			<input type="text" placeholder="账本名" v-model="accountName">
 		</view>
 		<view class="cover">
 			<view class="text">
@@ -11,13 +11,13 @@
 				<view class="addCover innerCover" @click="uploadCover">
 					<text>更多封面</text>
 				</view>
-				<view class="innerCover" @click="" v-for="cover in innerCover" :key="cover._id" :style="{backgroundImage: `url(${cover.url})`}">
-					<icon type="success" size="18"/>
+				<view class="innerCover" @click="selectCover" v-for="cover in innerCover" :key="cover._id" :id="cover._id" :style="{backgroundImage: `url(${cover.url})`}">
+					<icon type="success" size="18" v-show="selectedCoverId === cover._id"/>
 				</view>
 			</view>
 		</view>
 		<view class="button">
-			<button type="primary">保存</button>
+			<button type="primary" @click="storeAccount">保存</button>
 			<button type="warn">删除</button>
 		</view>
 	</view>
@@ -32,11 +32,36 @@
 		},
 		data() {
 			return {
-				
+				selectedCoverId: '',
+				accountName: ''
 			};
 		},
 		methods: {
-			
+			// 存储账本到account数据表
+			storeAccount(){
+				let targetCover = this.innerCover.filter((item)=>{
+					return item._id === this.selectedCoverId
+				})[0];
+				uniCloud.callFunction({
+					name: 'storeAccount',
+					data: {
+						cover: targetCover.url,
+						openid: this.openId,
+						accountTitle: this.accountName,
+						date: new Date(),
+						itemList: {}
+					}
+				})
+			},
+			// 单选封面，并记录所选封面的id
+			selectCover(e){
+				this.selectedCoverId = e.target.id;
+			},
+			// 更新封面列表
+			updateCoverList(newCover){
+				this.innerCover.unshift(newCover);
+			},
+			// 上传封面图片
 			uploadCover(){
 				uni.chooseImage({
 					count: 1,
@@ -49,7 +74,7 @@
 							success: (res) => {
 								this.storeUrlToCloud(res.fileID);
 							},
-							fail: (res) => {
+							fail: () => {
 								uni.showToast({
 									title: '图片上传失败'
 								})
@@ -58,15 +83,28 @@
 					}
 				});
 			},
+			// 将上传封面图片的url存储至cover数据表
 			storeUrlToCloud(url){
-				let res = uniCloud.callFunction({
+				uniCloud.callFunction({
 					name: 'storeCoverUrl',
 					data: {
 						openid: this.openId,
-						url
+						url,
+						index: 0
+					},
+					success: (res) => {
+						this.updateCoverList({
+							index: 0,
+							url,
+							_id: res.result.id
+						});
+					},
+					fail: () => {
+						uni.showToast({
+							title: '图片上传失败'
+						})
 					}
 				});
-				console.log(res);
 			}
 		}
 	}

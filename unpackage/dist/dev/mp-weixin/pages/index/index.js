@@ -162,8 +162,12 @@ var _default = {
     getInnerCover: function getInnerCover() {
       var _this = this;
       uniCloud.callFunction({
-        name: "getInnerCover"
+        name: "getInnerCover",
+        data: {
+          openid: this.openId
+        }
       }).then(function (res) {
+        console.log(res.result);
         _this.storeInnerCover(res.result);
       });
     },
