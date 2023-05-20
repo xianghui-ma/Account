@@ -152,29 +152,37 @@ var _default = {
   data: function data() {
     return {};
   },
+  watch: {
+    openId: {
+      handler: function handler() {
+        this.initAccountList();
+      }
+    }
+  },
   computed: _objectSpread({}, (0, _vuex.mapState)('publicData', ['appId', 'appSecret', 'openId'])),
   onLoad: function onLoad() {
     this.getOpenId();
     this.getInnerCover();
-    this.initAccountList();
   },
-  methods: _objectSpread(_objectSpread({}, (0, _vuex.mapActions)('publicData', ['storeOpenId', 'storeInnerCover'])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0, _vuex.mapActions)('publicData', ['storeOpenId', 'storeInnerCover', 'storeAccountList'])), {}, {
     // 初始化用户账本列表
     initAccountList: function initAccountList() {
-      console.log(this.openId);
+      var _this = this;
       uniCloud.callFunction({
         name: 'getAllAccount',
         data: {
           openid: this.openId
         },
         success: function success(res) {
-          console.log(res);
+          uni.hideLoading();
+          console.log(res.result);
+          _this.storeAccountList(res.result);
         }
       });
     },
     // 获取所有内置封面的url
     getInnerCover: function getInnerCover() {
-      var _this = this;
+      var _this2 = this;
       uniCloud.callFunction({
         name: "getInnerCover",
         data: {
@@ -182,7 +190,7 @@ var _default = {
         }
       }).then(function (res) {
         console.log(res.result);
-        _this.storeInnerCover(res.result);
+        _this2.storeInnerCover(res.result);
       });
     },
     // 页面跳转
@@ -193,32 +201,30 @@ var _default = {
     },
     // 自动获取openid登录
     getOpenId: function getOpenId() {
-      var _this2 = this;
+      var _this3 = this;
+      uni.showLoading({
+        title: '配置用户数据',
+        mask: true
+      });
       uni.getStorage({
         key: 'openId',
         success: function success(res) {
-          _this2.storeOpenId(res.data);
+          _this3.storeOpenId(res.data);
         },
         fail: function fail() {
-          uni.showLoading({
-            title: '配置用户数据',
-            mask: true
-          });
           uni.login({
             "provider": "weixin",
             "onlyAuthorize": true,
             success: function success(event) {
               uni.request({
-                url: "https://api.weixin.qq.com/sns/jscode2session?appid=".concat(_this2.appId, "&secret=").concat(_this2.appSecret, "&js_code=").concat(event.code, "&grant_type=authorization_code"),
+                url: "https://api.weixin.qq.com/sns/jscode2session?appid=".concat(_this3.appId, "&secret=").concat(_this3.appSecret, "&js_code=").concat(event.code, "&grant_type=authorization_code"),
                 success: function success(res) {
-                  _this2.storeOpenId(res.data.openid);
-                  uni.hideLoading();
-                  _this2.cacheOpenId();
+                  _this3.storeOpenId(res.data.openid);
+                  _this3.cacheOpenId();
                 }
               });
             },
             fail: function fail(err) {
-              uni.hideLoading();
               uni.showToast({
                 title: '数据配置失败'
               });

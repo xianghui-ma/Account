@@ -27,7 +27,7 @@
 		},
 		"date": {
 			"description": "账本创建时间",
-			"bsonType": "date"
+			"bsonType": "string"
 		},
 		"itemList": {
 			"description": "收支项目列表",

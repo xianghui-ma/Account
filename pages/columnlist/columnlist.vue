@@ -6,22 +6,10 @@
 		<view class="listArea">
 			<view class="time">
 				<view class="timeItem">
-					<text>2021-05-16</text>
+					<text>{{new Date().toISOString().split('T')[0]}}</text>
 				</view>
-				<view class="timeItem">
-					<text>2021-05-17</text>
-				</view>
-				<view class="timeItem">
-					<text>2021-05-17</text>
-				</view>
-				<view class="timeItem">
-					<text>2021-05-17</text>
-				</view>
-				<view class="timeItem">
-					<text>2021-05-17</text>
-				</view>
-				<view class="timeItem">
-					<text>2021-05-17</text>
+				<view class="timeItem" v-for="account in accountList" :key="account._id">
+					<text>{{account.date.split('T')[0]}}</text>
 				</view>
 			</view>
 			<view class="account">
@@ -29,38 +17,10 @@
 					<view class="addMark">+</view>
 					<view class="explain">创建一个新帐本</view>
 				</view>
-				<view class="accountContent">
-					<image src="https://mp-931dc76a-090b-4f2c-809b-bafd045c55e6.cdn.bspapp.com/cloudstorage/1cbb2bcc-82bb-4abe-9c4e-9a7acee5e9b1.png" mode="aspectFill" class="accountImg"/>
+				<view class="accountContent" v-for="account in accountList" :key="account._id" :id="account._id">
+					<image :src="account.cover" mode="aspectFill" class="accountImg"/>
 					<view class="description">
-						<text>江财一日游</text>
-						<text class="editIcon"></text>
-					</view>
-				</view>
-				<view class="accountContent">
-					<image src="https://mp-931dc76a-090b-4f2c-809b-bafd045c55e6.cdn.bspapp.com/cloudstorage/1cbb2bcc-82bb-4abe-9c4e-9a7acee5e9b1.png" mode="aspectFill" class="accountImg"/>
-					<view class="description">
-						<text>江财一日游</text>
-						<text class="editIcon"></text>
-					</view>
-				</view>
-				<view class="accountContent">
-					<image src="https://mp-931dc76a-090b-4f2c-809b-bafd045c55e6.cdn.bspapp.com/cloudstorage/1cbb2bcc-82bb-4abe-9c4e-9a7acee5e9b1.png" mode="aspectFill" class="accountImg"/>
-					<view class="description">
-						<text>江财一日游</text>
-						<text class="editIcon"></text>
-					</view>
-				</view>
-				<view class="accountContent">
-					<image src="https://mp-931dc76a-090b-4f2c-809b-bafd045c55e6.cdn.bspapp.com/cloudstorage/1cbb2bcc-82bb-4abe-9c4e-9a7acee5e9b1.png" mode="aspectFill" class="accountImg"/>
-					<view class="description">
-						<text>江财一日游</text>
-						<text class="editIcon"></text>
-					</view>
-				</view>
-				<view class="accountContent">
-					<image src="https://mp-931dc76a-090b-4f2c-809b-bafd045c55e6.cdn.bspapp.com/cloudstorage/1cbb2bcc-82bb-4abe-9c4e-9a7acee5e9b1.png" mode="aspectFill" class="accountImg"/>
-					<view class="description">
-						<text>江财一日游</text>
+						<text>{{account.accountTitle}}</text>
 						<text class="editIcon"></text>
 					</view>
 				</view>
@@ -70,8 +30,17 @@
 </template>
 
 <script>
+	import {mapState} from 'vuex';
 	export default {
 		name: 'columnlist',
+		computed: {
+			...mapState('publicData', ['accountList']),
+		},
+		data(){
+			return {
+				
+			}
+		},
 		methods: {
 			gotoRowlist(){
 				uni.redirectTo({

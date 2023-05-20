@@ -13,28 +13,35 @@
 				
 			}
 		},
+		watch: {
+			openId: {
+				handler(){
+					this.initAccountList();
+				}
+			}
+		},
 		computed: {
 			...mapState('publicData', ['appId', 'appSecret', 'openId'])
 		},
 		onLoad() {
 			this.getOpenId();
 			this.getInnerCover();
-			this.initAccountList();
 		},
 		methods: {
-			...mapActions('publicData', ['storeOpenId', 'storeInnerCover']),
+			...mapActions('publicData', ['storeOpenId', 'storeInnerCover', 'storeAccountList']),
 			// 初始化用户账本列表
 			initAccountList(){
-				console.log(this.openId);
 				uniCloud.callFunction({
 					name: 'getAllAccount',
 					data: {
 						openid: this.openId
 					},
 					success: (res) => {
-						console.log(res);
+						uni.hideLoading();
+						console.log(res.result);
+						this.storeAccountList(res.result);
 					}
-				})
+				});
 			},
 			// 获取所有内置封面的url
 			getInnerCover(){
@@ -56,16 +63,16 @@
 			},
 			// 自动获取openid登录
 			getOpenId(){
+				uni.showLoading({
+					title: '配置用户数据',
+					mask: true
+				});
 				uni.getStorage({
 					key: 'openId',
 					success: (res)=>{
 						this.storeOpenId(res.data);
 					},
 					fail: ()=>{
-						uni.showLoading({
-							title: '配置用户数据',
-							mask: true
-						});
 						uni.login({
 							"provider": "weixin",
 							"onlyAuthorize": true,
@@ -74,13 +81,11 @@
 								    url: `https://api.weixin.qq.com/sns/jscode2session?appid=${this.appId}&secret=${this.appSecret}&js_code=${event.code}&grant_type=authorization_code`,
 								    success: (res)=>{
 										this.storeOpenId(res.data.openid);
-										uni.hideLoading();
 										this.cacheOpenId();
 								    }
 								});
 							},
 							fail: (err)=>{
-								uni.hideLoading()
 								uni.showToast({
 									title: '数据配置失败'
 								})

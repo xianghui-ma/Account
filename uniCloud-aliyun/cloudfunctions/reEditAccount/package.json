@@ -1,0 +1,7 @@
+{
+  "name": "reEditAccount",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}

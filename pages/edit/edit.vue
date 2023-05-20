@@ -17,8 +17,8 @@
 			</view>
 		</view>
 		<view class="button">
-			<button type="primary" @click="storeAccount">保存</button>
-			<button type="warn">删除</button>
+			<button type="primary" @click="editAccount ? reStoreAccouunt : storeAccount">保存</button>
+			<button type="warn" @click="deleteAccount">删除</button>
 		</view>
 	</view>
 </template>
@@ -28,7 +28,8 @@
 	export default {
 		name: 'edit',
 		computed: {
-			...mapState('publicData', ['innerCover', 'openId']),
+			...mapState('publicData', ['innerCover', 'openId', 'accountList']),
+			...mapState('rowListData', ['editAccount', 'editAccountIndex']),
 		},
 		data() {
 			return {
@@ -36,8 +37,73 @@
 				accountName: ''
 			};
 		},
+		created() {
+			this.updateAccountMes();
+		},
 		methods: {
-			...mapActions('publicData', ['updateAccountList']),
+			...mapActions('publicData', ['updateAccountList', 'reEditAccount']),
+			...mapActions('rowListData', ['storeEditAccount', 'storeEditAccountIndex']),
+			// 修改账本封面和账本名字后重新保存账本
+			reStoreAccouunt(){
+				console.log('@@@@');
+				uni.showLoading({
+					title: '保存账本',
+					mask: true
+				})
+				let targetCover = this.innerCover.filter((item)=>{
+					return item._id === this.selectedCoverId
+				})[0];
+				let data = {
+					cover: targetCover.url,
+					accountTitle: this.accountName,
+				};
+				uniCloud.callFunction({
+					name: 'reEditAccount',
+					data,
+					success: (res) => {
+						this.reEditAccount({
+							index: this.editAccountIndex,
+							...data
+						});						
+						uni.hideLoading();
+						uni.redirectTo({
+							url: '/pages/rowlist/rowlist'
+						});
+					}
+				})
+			},
+			// 删除帐本
+			deleteAccount(){
+				uni.showLoading({
+					title: `正在删除:${this.accountList.splice(this.editAccountIndex, 1)[0].accountTitle}`
+				});
+				uniCloud.callFunction({
+					name: 'deleteAccount',
+					data: {
+						id: this.editAccount._id
+					},
+					success: (res) => {
+						this.storeEditAccount(null);
+						this.storeEditAccountIndex(-1);
+						uni.hideLoading();
+						uni.redirectTo({
+							url: '/pages/rowlist/rowlist'
+						})
+					}
+				})
+			},
+			// 从账本列表重新编辑账本时，显示账本名字和封面
+			updateAccountMes(){
+				if(this.editAccount){
+					this.accountName = this.editAccount.accountTitle;
+					this.innerCover.forEach((item)=>{
+						if(item.url === this.editAccount.cover){
+							this.selectedCoverId = item._id;
+							return;
+						}
+					});
+				}
+			},
 			// 新建账本成功后更新账本列表并跳转到账本列表页
 			goAccountList(data){
 				this.updateAccountList(data);
@@ -47,6 +113,10 @@
 			},
 			// 存储账本到account数据表
 			storeAccount(){
+				uni.showLoading({
+					title: '保存账本',
+					mask: true
+				})
 				let targetCover = this.innerCover.filter((item)=>{
 					return item._id === this.selectedCoverId
 				})[0];
@@ -54,14 +124,16 @@
 					cover: targetCover.url,
 					openid: this.openId,
 					accountTitle: this.accountName,
-					date: new Date(),
+					date: new Date().toISOString(),
 					itemList: {}
 				};
 				uniCloud.callFunction({
 					name: 'storeAccount',
 					data,
-					success: () => {
+					success: (res) => {
+						data._id = res.result.id;
 						this.goAccountList(data);
+						uni.hideLoading();
 					}
 				})
 			},

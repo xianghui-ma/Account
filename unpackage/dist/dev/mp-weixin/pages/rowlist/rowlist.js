@@ -105,14 +105,10 @@ var render = function () {
   var _c = _vm._self._c || _h
   var l0 = _vm.__map(_vm.accountList, function (account, __i0__) {
     var $orig = _vm.__get_orig(account)
-    var g0 = account.date.getFullYear()
-    var g1 = account.date.getMonth()
-    var g2 = account.date.getDate()
+    var g0 = account.date.split("T")
     return {
       $orig: $orig,
       g0: g0,
-      g1: g1,
-      g2: g2,
     }
   })
   _vm.$mp.data = Object.assign(
@@ -169,23 +165,43 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var _default = {
   computed: _objectSpread({}, (0, _vuex.mapState)('publicData', ['accountList'])),
-  methods: {
+  methods: _objectSpread(_objectSpread({}, (0, _vuex.mapActions)('rowListData', ['storeEditAccount', 'storeEditAccountIndex'])), {}, {
+    operateAccount: function operateAccount(e) {
+      var _this = this;
+      switch (e.target.id) {
+        case 'payments':
+          this.gotoPayments();
+          break;
+        case 'edit':
+          this.storeEditAccount(this.accountList.filter(function (item, index) {
+            if (item._id === e.currentTarget.id) {
+              _this.storeEditAccountIndex(index);
+              return true;
+            }
+          })[0]);
+          this.gotoEdit();
+          break;
+      }
+    },
+    // 跳转到列列表页面
     gotoColumnlist: function gotoColumnlist() {
       uni.redirectTo({
         url: '/pages/columnlist/columnlist'
       });
     },
+    // 跳转到编辑页
     gotoEdit: function gotoEdit() {
       uni.redirectTo({
         url: '/pages/edit/edit'
       });
     },
+    // 跳转到增添收支页面
     gotoPayments: function gotoPayments() {
       uni.redirectTo({
         url: '/pages/payments/payments'
       });
     }
-  },
+  }),
   data: function data() {
     return {};
   }

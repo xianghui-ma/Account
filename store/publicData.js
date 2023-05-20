@@ -6,7 +6,7 @@ export default{
 		appId: 'wx2b482e8d9a92ad01',
 		appSecret: '981dd17896416889f510c7c9eda2d48a',
 		innerCover: null,
-		accountList: []
+		accountList: null
     },
 	actions: {
 		storeOpenId(context, data){
@@ -17,6 +17,12 @@ export default{
 		},
 		updateAccountList(context, data){
 			context.commit('updateAccountList', data);
+		},
+		storeAccountList(context, data){
+			context.commit('storeAccountList', data);
+		},
+		reEditAccount(context, data){
+			context.commit('reEditAccount', data);
 		}
 	},
 	mutations: {
@@ -28,6 +34,13 @@ export default{
 		},
 		updateAccountList(preState, data){
 			preState.accountList.unshift(data);
-		}
+		},
+		storeAccountList(preState, data){
+			preState.accountList = data;
+		},
+		reEditAccount(preState, data){
+			preState.accountList[data.index].cover = data.cover;
+			preState.accountList[data.index].accountTitle = data.accountTitle;
+		},
 	},
 }

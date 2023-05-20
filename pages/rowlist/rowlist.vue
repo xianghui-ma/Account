@@ -11,13 +11,13 @@
 					<view class="explain">创建一个新帐本</view>
 				</view>
 			</swiper-item>
-			<swiper-item class="listItem" v-for="account in accountList">
+			<swiper-item class="listItem" v-for="account in accountList" :key="account._id" :id="account._id" @click="operateAccount">
 				<view class="accountContent">
-					<image :src="account.cover" mode="aspectFill" class="accountImg"/>
+					<image :src="account.cover" mode="aspectFill" class="accountImg" id="payments"/>
 					<view class="accountTitle"><text>{{account.accountTitle}}</text></view>
-					<view class="accountDate"><text>{{`${account.date.getFullYear()}-${account.date.getMonth() + 1}-${account.date.getDate()}`}}</text></view>
+					<view class="accountDate"><text>{{`${account.date.split('T')[0]}`}}</text></view>
 					<view class="editAccount">
-						<text class="editIcon"></text>
+						<text class="editIcon" id="edit"></text>
 					</view>
 				</view>
 			</swiper-item>
@@ -26,22 +26,42 @@
 </template>
 
 <script>
-	import {mapState} from 'vuex';
+	import {mapState, mapActions} from 'vuex';
 	export default {
 		computed: {
 			...mapState('publicData', ['accountList']),
 		},
 		methods: {
+			...mapActions('rowListData', ['storeEditAccount', 'storeEditAccountIndex']),
+			operateAccount(e){
+				switch(e.target.id){
+					case 'payments':
+						this.gotoPayments();
+						break;
+					case 'edit':
+						this.storeEditAccount(this.accountList.filter((item, index)=>{
+							if(item._id === e.currentTarget.id){
+								this.storeEditAccountIndex(index);
+								return true;
+							}
+						})[0]);
+						this.gotoEdit();
+						break;
+				}
+			},
+			// 跳转到列列表页面
 			gotoColumnlist(){
 				uni.redirectTo({
 					url: '/pages/columnlist/columnlist'
 				})
 			},
+			// 跳转到编辑页
 			gotoEdit(){
 				uni.redirectTo({
 					url: '/pages/edit/edit'
 				})
 			},
+			// 跳转到增添收支页面
 			gotoPayments(){
 				uni.redirectTo({
 					url: '/pages/payments/payments'

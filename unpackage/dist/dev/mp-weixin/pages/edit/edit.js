@@ -103,6 +103,11 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function ($event) {
+      _vm.editAccount ? _vm.reStoreAccouunt : _vm.storeAccount
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -149,14 +154,80 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var _default = {
   name: 'edit',
-  computed: _objectSpread({}, (0, _vuex.mapState)('publicData', ['innerCover', 'openId'])),
+  computed: _objectSpread(_objectSpread({}, (0, _vuex.mapState)('publicData', ['innerCover', 'openId', 'accountList'])), (0, _vuex.mapState)('rowListData', ['editAccount', 'editAccountIndex'])),
   data: function data() {
     return {
       selectedCoverId: '',
       accountName: ''
     };
   },
-  methods: _objectSpread(_objectSpread({}, (0, _vuex.mapActions)('publicData', ['updateAccountList'])), {}, {
+  created: function created() {
+    this.updateAccountMes();
+  },
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0, _vuex.mapActions)('publicData', ['updateAccountList', 'reEditAccount'])), (0, _vuex.mapActions)('rowListData', ['storeEditAccount', 'storeEditAccountIndex'])), {}, {
+    // 修改账本封面和账本名字后重新保存账本
+    reStoreAccouunt: function reStoreAccouunt() {
+      var _this = this;
+      console.log('@@@@');
+      uni.showLoading({
+        title: '保存账本',
+        mask: true
+      });
+      var targetCover = this.innerCover.filter(function (item) {
+        return item._id === _this.selectedCoverId;
+      })[0];
+      var data = {
+        cover: targetCover.url,
+        accountTitle: this.accountName
+      };
+      uniCloud.callFunction({
+        name: 'reEditAccount',
+        data: data,
+        success: function success(res) {
+          _this.reEditAccount(_objectSpread({
+            index: _this.editAccountIndex
+          }, data));
+          uni.hideLoading();
+          uni.redirectTo({
+            url: '/pages/rowlist/rowlist'
+          });
+        }
+      });
+    },
+    // 删除帐本
+    deleteAccount: function deleteAccount() {
+      var _this2 = this;
+      uni.showLoading({
+        title: "\u6B63\u5728\u5220\u9664:".concat(this.accountList.splice(this.editAccountIndex, 1)[0].accountTitle)
+      });
+      uniCloud.callFunction({
+        name: 'deleteAccount',
+        data: {
+          id: this.editAccount._id
+        },
+        success: function success(res) {
+          _this2.storeEditAccount(null);
+          _this2.storeEditAccountIndex(-1);
+          uni.hideLoading();
+          uni.redirectTo({
+            url: '/pages/rowlist/rowlist'
+          });
+        }
+      });
+    },
+    // 从账本列表重新编辑账本时，显示账本名字和封面
+    updateAccountMes: function updateAccountMes() {
+      var _this3 = this;
+      if (this.editAccount) {
+        this.accountName = this.editAccount.accountTitle;
+        this.innerCover.forEach(function (item) {
+          if (item.url === _this3.editAccount.cover) {
+            _this3.selectedCoverId = item._id;
+            return;
+          }
+        });
+      }
+    },
     // 新建账本成功后更新账本列表并跳转到账本列表页
     goAccountList: function goAccountList(data) {
       this.updateAccountList(data);
@@ -166,22 +237,28 @@ var _default = {
     },
     // 存储账本到account数据表
     storeAccount: function storeAccount() {
-      var _this = this;
+      var _this4 = this;
+      uni.showLoading({
+        title: '保存账本',
+        mask: true
+      });
       var targetCover = this.innerCover.filter(function (item) {
-        return item._id === _this.selectedCoverId;
+        return item._id === _this4.selectedCoverId;
       })[0];
       var data = {
         cover: targetCover.url,
         openid: this.openId,
         accountTitle: this.accountName,
-        date: new Date(),
+        date: new Date().toISOString(),
         itemList: {}
       };
       uniCloud.callFunction({
         name: 'storeAccount',
         data: data,
-        success: function success() {
-          _this.goAccountList(data);
+        success: function success(res) {
+          data._id = res.result.id;
+          _this4.goAccountList(data);
+          uni.hideLoading();
         }
       });
     },
@@ -195,7 +272,7 @@ var _default = {
     },
     // 上传封面图片
     uploadCover: function uploadCover() {
-      var _this2 = this;
+      var _this5 = this;
       uni.chooseImage({
         count: 1,
         success: function success(chooseImageRes) {
@@ -205,7 +282,7 @@ var _default = {
             fileType: 'image',
             cloudPath: "".concat(Date.now(), ".").concat(filePath.split('.')[1]),
             success: function success(res) {
-              _this2.storeUrlToCloud(res.fileID);
+              _this5.storeUrlToCloud(res.fileID);
             },
             fail: function fail() {
               uni.showToast({
@@ -218,7 +295,7 @@ var _default = {
     },
     // 将上传封面图片的url存储至cover数据表
     storeUrlToCloud: function storeUrlToCloud(url) {
-      var _this3 = this;
+      var _this6 = this;
       uniCloud.callFunction({
         name: 'storeCoverUrl',
         data: {
@@ -227,7 +304,7 @@ var _default = {
           index: 0
         },
         success: function success(res) {
-          _this3.updateCoverList({
+          _this6.updateCoverList({
             index: 0,
             url: url,
             _id: res.result.id

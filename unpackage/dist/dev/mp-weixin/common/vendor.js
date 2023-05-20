@@ -17587,12 +17587,14 @@ exports.default = void 0;
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 25));
 var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 47));
 var _publicData = _interopRequireDefault(__webpack_require__(/*! ./publicData.js */ 48));
+var _rowlist = _interopRequireDefault(__webpack_require__(/*! ./rowlist.js */ 113));
 _vue.default.use(_vuex.default);
 
 // 创建store
 var _default = new _vuex.default.Store({
   modules: {
-    publicData: _publicData.default
+    publicData: _publicData.default,
+    rowListData: _rowlist.default
   }
 });
 exports.default = _default;
@@ -18876,7 +18878,7 @@ var _default = {
     appId: 'wx2b482e8d9a92ad01',
     appSecret: '981dd17896416889f510c7c9eda2d48a',
     innerCover: null,
-    accountList: []
+    accountList: null
   },
   actions: {
     storeOpenId: function storeOpenId(context, data) {
@@ -18887,6 +18889,12 @@ var _default = {
     },
     updateAccountList: function updateAccountList(context, data) {
       context.commit('updateAccountList', data);
+    },
+    storeAccountList: function storeAccountList(context, data) {
+      context.commit('storeAccountList', data);
+    },
+    reEditAccount: function reEditAccount(context, data) {
+      context.commit('reEditAccount', data);
     }
   },
   mutations: {
@@ -18898,6 +18906,118 @@ var _default = {
     },
     updateAccountList: function updateAccountList(preState, data) {
       preState.accountList.unshift(data);
+    },
+    storeAccountList: function storeAccountList(preState, data) {
+      preState.accountList = data;
+    },
+    reEditAccount: function reEditAccount(preState, data) {
+      preState.accountList[data.index].cover = data.cover;
+      preState.accountList[data.index].accountTitle = data.accountTitle;
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */,
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */,
+/* 77 */,
+/* 78 */,
+/* 79 */,
+/* 80 */,
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */,
+/* 87 */,
+/* 88 */,
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */
+/*!***********************************!*\
+  !*** F:/Account/store/rowlist.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+// 来源于rowlist组件的共享数据
+var _default = {
+  namespaced: true,
+  state: {
+    editAccount: null,
+    editAccountIndex: -1
+  },
+  actions: {
+    storeEditAccount: function storeEditAccount(context, data) {
+      context.commit('storeEditAccount', data);
+    },
+    storeEditAccountIndex: function storeEditAccountIndex(context, data) {
+      context.commit('storeEditAccountIndex', data);
+    }
+  },
+  mutations: {
+    storeEditAccount: function storeEditAccount(preState, data) {
+      preState.editAccount = data;
+    },
+    storeEditAccountIndex: function storeEditAccountIndex(preState, data) {
+      preState.editAccountIndex = data;
     }
   }
 };
