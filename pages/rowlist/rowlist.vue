@@ -11,22 +11,12 @@
 					<view class="explain">创建一个新帐本</view>
 				</view>
 			</swiper-item>
-			<swiper-item class="listItem">
+			<swiper-item class="listItem" v-for="account in accountList">
 				<view class="accountContent">
-					<image src="https://mp-931dc76a-090b-4f2c-809b-bafd045c55e6.cdn.bspapp.com/cloudstorage/1cbb2bcc-82bb-4abe-9c4e-9a7acee5e9b1.png" mode="aspectFill" class="accountImg"/>
-					<view class="accountTitle"><text>江财一日游</text></view>
-					<view class="accountDate"><text>2023-02-21</text></view>
+					<image :src="account.cover" mode="aspectFill" class="accountImg"/>
+					<view class="accountTitle"><text>{{account.accountTitle}}</text></view>
+					<view class="accountDate"><text>{{`${account.date.getFullYear()}-${account.date.getMonth() + 1}-${account.date.getDate()}`}}</text></view>
 					<view class="editAccount">
-						<text class="editIcon"></text>
-					</view>
-				</view>
-			</swiper-item>
-			<swiper-item class="listItem">
-				<view class="accountContent">
-					<image src="https://mp-931dc76a-090b-4f2c-809b-bafd045c55e6.cdn.bspapp.com/cloudstorage/1cbb2bcc-82bb-4abe-9c4e-9a7acee5e9b1.png" mode="aspectFill" class="accountImg"/>
-					<view class="accountTitle"><text>江财一日游</text></view>
-					<view class="accountDate"><text>2023-02-21</text></view>
-					<view class="editAccount" @click="gotoPayments">
 						<text class="editIcon"></text>
 					</view>
 				</view>
@@ -36,7 +26,11 @@
 </template>
 
 <script>
+	import {mapState} from 'vuex';
 	export default {
+		computed: {
+			...mapState('publicData', ['accountList']),
+		},
 		methods: {
 			gotoColumnlist(){
 				uni.redirectTo({

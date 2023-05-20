@@ -24,7 +24,7 @@
 </template>
 
 <script>
-	import {mapState} from 'vuex';
+	import {mapState, mapActions} from 'vuex';
 	export default {
 		name: 'edit',
 		computed: {
@@ -37,19 +37,31 @@
 			};
 		},
 		methods: {
+			...mapActions('publicData', ['updateAccountList']),
+			// 新建账本成功后更新账本列表并跳转到账本列表页
+			goAccountList(data){
+				this.updateAccountList(data);
+				uni.redirectTo({
+					url: '/pages/rowlist/rowlist'
+				});
+			},
 			// 存储账本到account数据表
 			storeAccount(){
 				let targetCover = this.innerCover.filter((item)=>{
 					return item._id === this.selectedCoverId
 				})[0];
+				let data = {
+					cover: targetCover.url,
+					openid: this.openId,
+					accountTitle: this.accountName,
+					date: new Date(),
+					itemList: {}
+				};
 				uniCloud.callFunction({
 					name: 'storeAccount',
-					data: {
-						cover: targetCover.url,
-						openid: this.openId,
-						accountTitle: this.accountName,
-						date: new Date(),
-						itemList: {}
+					data,
+					success: () => {
+						this.goAccountList(data);
 					}
 				})
 			},

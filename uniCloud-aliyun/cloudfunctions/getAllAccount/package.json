@@ -1,0 +1,7 @@
+{
+  "name": "getAllAccount",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}

@@ -156,8 +156,22 @@ var _default = {
   onLoad: function onLoad() {
     this.getOpenId();
     this.getInnerCover();
+    this.initAccountList();
   },
   methods: _objectSpread(_objectSpread({}, (0, _vuex.mapActions)('publicData', ['storeOpenId', 'storeInnerCover'])), {}, {
+    // 初始化用户账本列表
+    initAccountList: function initAccountList() {
+      console.log(this.openId);
+      uniCloud.callFunction({
+        name: 'getAllAccount',
+        data: {
+          openid: this.openId
+        },
+        success: function success(res) {
+          console.log(res);
+        }
+      });
+    },
     // 获取所有内置封面的url
     getInnerCover: function getInnerCover() {
       var _this = this;

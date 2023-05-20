@@ -136,7 +136,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uniCloud, uni) {
+/* WEBPACK VAR INJECTION */(function(uni, uniCloud) {
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
@@ -156,21 +156,32 @@ var _default = {
       accountName: ''
     };
   },
-  methods: {
+  methods: _objectSpread(_objectSpread({}, (0, _vuex.mapActions)('publicData', ['updateAccountList'])), {}, {
+    // 新建账本成功后更新账本列表并跳转到账本列表页
+    goAccountList: function goAccountList(data) {
+      this.updateAccountList(data);
+      uni.redirectTo({
+        url: '/pages/rowlist/rowlist'
+      });
+    },
     // 存储账本到account数据表
     storeAccount: function storeAccount() {
       var _this = this;
       var targetCover = this.innerCover.filter(function (item) {
         return item._id === _this.selectedCoverId;
       })[0];
+      var data = {
+        cover: targetCover.url,
+        openid: this.openId,
+        accountTitle: this.accountName,
+        date: new Date(),
+        itemList: {}
+      };
       uniCloud.callFunction({
         name: 'storeAccount',
-        data: {
-          cover: targetCover.url,
-          openid: this.openId,
-          accountTitle: this.accountName,
-          date: new Date(),
-          itemList: {}
+        data: data,
+        success: function success() {
+          _this.goAccountList(data);
         }
       });
     },
@@ -229,10 +240,10 @@ var _default = {
         }
       });
     }
-  }
+  })
 };
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/uni-cloud/dist/index.js */ 27)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/uni-cloud/dist/index.js */ 27)["default"]))
 
 /***/ }),
 

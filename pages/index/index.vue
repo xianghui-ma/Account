@@ -19,9 +19,23 @@
 		onLoad() {
 			this.getOpenId();
 			this.getInnerCover();
+			this.initAccountList();
 		},
 		methods: {
 			...mapActions('publicData', ['storeOpenId', 'storeInnerCover']),
+			// 初始化用户账本列表
+			initAccountList(){
+				console.log(this.openId);
+				uniCloud.callFunction({
+					name: 'getAllAccount',
+					data: {
+						openid: this.openId
+					},
+					success: (res) => {
+						console.log(res);
+					}
+				})
+			},
 			// 获取所有内置封面的url
 			getInnerCover(){
 				uniCloud.callFunction({

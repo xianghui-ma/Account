@@ -5,7 +5,8 @@ export default{
 		openId: '',
 		appId: 'wx2b482e8d9a92ad01',
 		appSecret: '981dd17896416889f510c7c9eda2d48a',
-		innerCover: null
+		innerCover: null,
+		accountList: []
     },
 	actions: {
 		storeOpenId(context, data){
@@ -13,6 +14,9 @@ export default{
 		},
 		storeInnerCover(context, data){
 			context.commit('storeInnerCover', data);
+		},
+		updateAccountList(context, data){
+			context.commit('updateAccountList', data);
 		}
 	},
 	mutations: {
@@ -21,6 +25,9 @@ export default{
 		},
 		storeInnerCover(preState, data){
 			preState.innerCover = data;
+		},
+		updateAccountList(preState, data){
+			preState.accountList.unshift(data);
 		}
 	},
 }
