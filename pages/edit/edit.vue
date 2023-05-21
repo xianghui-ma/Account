@@ -17,7 +17,7 @@
 			</view>
 		</view>
 		<view class="button">
-			<button type="primary" @click="editAccount ? reStoreAccouunt : storeAccount">保存</button>
+			<button type="primary" @click="operateStore">保存</button>
 			<button type="warn" @click="deleteAccount">删除</button>
 		</view>
 	</view>
@@ -43,32 +43,48 @@
 		methods: {
 			...mapActions('publicData', ['updateAccountList', 'reEditAccount']),
 			...mapActions('rowListData', ['storeEditAccount', 'storeEditAccountIndex']),
+			// 执行保存操作
+			operateStore(){
+				if(this.editAccount){
+					this.reStoreAccouunt();
+				}else{
+					this.storeAccount();
+				}
+			},
 			// 修改账本封面和账本名字后重新保存账本
 			reStoreAccouunt(){
-				console.log('@@@@');
 				uni.showLoading({
 					title: '保存账本',
 					mask: true
 				})
-				let targetCover = this.innerCover.filter((item)=>{
-					return item._id === this.selectedCoverId
-				})[0];
-				let data = {
-					cover: targetCover.url,
+				// 获取新的封面url
+				let cover = '';
+				this.innerCover.forEach((item)=>{
+					if(item._id === this.selectedCoverId){
+						cover = item.url;
+					}
+				});
+				// 修改accountList中对应的账本
+				this.reEditAccount({
+					index: this.editAccountIndex,
+					cover,
 					accountTitle: this.accountName,
-				};
+				});
+				// 修改云端对应账本
 				uniCloud.callFunction({
 					name: 'reEditAccount',
-					data,
+					data: {
+						id: this.editAccount._id,
+						cover,
+						accountTitle: this.accountName
+					},
 					success: (res) => {
-						this.reEditAccount({
-							index: this.editAccountIndex,
-							...data
-						});						
+						this.storeEditAccount(null);
+						this.storeEditAccountIndex(-1);
 						uni.hideLoading();
 						uni.redirectTo({
 							url: '/pages/rowlist/rowlist'
-						});
+						})
 					}
 				})
 			},
@@ -113,6 +129,7 @@
 			},
 			// 存储账本到account数据表
 			storeAccount(){
+				console.log('新建');
 				uni.showLoading({
 					title: '保存账本',
 					mask: true
