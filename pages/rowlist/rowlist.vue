@@ -49,6 +49,10 @@
 						break;
 				}
 			},
+			onShow(){
+				this.storeEditAccount(null);
+				this.storeEditAccountIndex(-1);
+			},
 			// 跳转到列列表页面
 			gotoColumnlist(){
 				uni.redirectTo({
@@ -57,13 +61,13 @@
 			},
 			// 跳转到编辑页
 			gotoEdit(){
-				uni.redirectTo({
+				uni.navigateTo({
 					url: '/pages/edit/edit'
 				})
 			},
 			// 跳转到增添收支页面
 			gotoPayments(){
-				uni.redirectTo({
+				uni.navigateTo({
 					url: '/pages/payments/payments'
 				})
 			}

@@ -171,18 +171,45 @@ var _default = (0, _defineProperty2.default)({
   data: function data() {
     return {};
   },
-  methods: {
+  methods: _objectSpread(_objectSpread({}, (0, _vuex.mapActions)('rowListData', ['storeEditAccount', 'storeEditAccountIndex'])), {}, {
+    operateAccount: function operateAccount(e) {
+      var _this = this;
+      this.storeEditAccount(this.accountList.filter(function (item, index) {
+        if (item._id === e.currentTarget.id) {
+          _this.storeEditAccountIndex(index);
+          return true;
+        }
+      })[0]);
+      switch (e.target.id) {
+        case 'payments':
+          this.gotoPayments();
+          break;
+        case 'edit':
+          this.gotoEdit();
+          break;
+      }
+    },
+    onShow: function onShow() {
+      this.storeEditAccount(null);
+      this.storeEditAccountIndex(-1);
+    },
+    // 跳转到增添收支页面
+    gotoPayments: function gotoPayments() {
+      uni.navigateTo({
+        url: '/pages/payments/payments'
+      });
+    },
     gotoRowlist: function gotoRowlist() {
       uni.redirectTo({
         url: '/pages/rowlist/rowlist'
       });
     },
     gotoEdit: function gotoEdit() {
-      uni.redirectTo({
+      uni.navigateTo({
         url: '/pages/edit/edit'
       });
     }
-  }
+  })
 }, "data", function data() {
   return {};
 });

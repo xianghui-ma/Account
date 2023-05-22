@@ -1,8 +1,9 @@
 <template>
 	<view class="payments">
-		<view class="mes">
-			<text id="expend" @click="getType" v-bind:class="expend && 'activeExpend'">支出</text>
-			<text id="income" @click="getType" v-bind:class="income && 'activeIncome'">收入</text>
+		<view class="mes" @click="getType">
+			<text id="expend" v-bind:class="expend && 'activeExpend'">支出</text>
+			<text id="income" v-bind:class="income && 'activeIncome'">收入</text>
+			<text id="blog">收支记录</text>
 		</view>
 		<view class="name">
 			<input type="text" placeholder="收支名" v-model="paymentName">
@@ -27,8 +28,14 @@
 		methods: {
 			...mapActions('rowListData', ['storePaymentItem']),
 			getType(event){
-				this.expend = event.target.id === 'expend';
-				this.income = event.target.id === 'income';
+				if(event.target.id === 'blog'){
+					uni.redirectTo({
+						url: '/pages/detail/detail'
+					})
+				}else{
+					this.expend = event.target.id === 'expend';
+					this.income = event.target.id === 'income';
+				}
 			},
 			storePayments(){
 				uni.showLoading({

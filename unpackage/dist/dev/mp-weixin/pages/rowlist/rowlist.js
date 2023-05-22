@@ -183,6 +183,10 @@ var _default = {
           break;
       }
     },
+    onShow: function onShow() {
+      this.storeEditAccount(null);
+      this.storeEditAccountIndex(-1);
+    },
     // 跳转到列列表页面
     gotoColumnlist: function gotoColumnlist() {
       uni.redirectTo({
@@ -191,13 +195,13 @@ var _default = {
     },
     // 跳转到编辑页
     gotoEdit: function gotoEdit() {
-      uni.redirectTo({
+      uni.navigateTo({
         url: '/pages/edit/edit'
       });
     },
     // 跳转到增添收支页面
     gotoPayments: function gotoPayments() {
-      uni.redirectTo({
+      uni.navigateTo({
         url: '/pages/payments/payments'
       });
     }

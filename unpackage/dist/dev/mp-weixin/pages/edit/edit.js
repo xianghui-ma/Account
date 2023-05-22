@@ -197,18 +197,18 @@ var _default = {
           accountTitle: this.accountName
         },
         success: function success(res) {
-          _this.storeEditAccount(null);
-          _this.storeEditAccountIndex(-1);
+          // this.storeEditAccount(null);
+          // this.storeEditAccountIndex(-1);
           uni.hideLoading();
-          uni.redirectTo({
-            url: '/pages/rowlist/rowlist'
-          });
+          uni.navigateBack();
+          // uni.redirectTo({
+          // 	url: '/pages/rowlist/rowlist'
+          // })
         }
       });
     },
     // 删除帐本
     deleteAccount: function deleteAccount() {
-      var _this2 = this;
       uni.showLoading({
         title: "\u6B63\u5728\u5220\u9664:".concat(this.accountList.splice(this.editAccountIndex, 1)[0].accountTitle)
       });
@@ -218,23 +218,24 @@ var _default = {
           id: this.editAccount._id
         },
         success: function success(res) {
-          _this2.storeEditAccount(null);
-          _this2.storeEditAccountIndex(-1);
+          // this.storeEditAccount(null);
+          // this.storeEditAccountIndex(-1);
           uni.hideLoading();
-          uni.redirectTo({
-            url: '/pages/rowlist/rowlist'
-          });
+          uni.navigateBack();
+          // uni.redirectTo({
+          // 	url: '/pages/rowlist/rowlist'
+          // })
         }
       });
     },
     // 从账本列表重新编辑账本时，显示账本名字和封面
     updateAccountMes: function updateAccountMes() {
-      var _this3 = this;
+      var _this2 = this;
       if (this.editAccount) {
         this.accountName = this.editAccount.accountTitle;
         this.innerCover.forEach(function (item) {
-          if (item.url === _this3.editAccount.cover) {
-            _this3.selectedCoverId = item._id;
+          if (item.url === _this2.editAccount.cover) {
+            _this2.selectedCoverId = item._id;
             return;
           }
         });
@@ -243,20 +244,21 @@ var _default = {
     // 新建账本成功后更新账本列表并跳转到账本列表页
     goAccountList: function goAccountList(data) {
       this.updateAccountList(data);
-      uni.redirectTo({
-        url: '/pages/rowlist/rowlist'
-      });
+      uni.navigateBack();
+      // uni.redirectTo({
+      // 	url: '/pages/rowlist/rowlist'
+      // });
     },
     // 存储账本到account数据表
     storeAccount: function storeAccount() {
-      var _this4 = this;
+      var _this3 = this;
       console.log('新建');
       uni.showLoading({
         title: '保存账本',
         mask: true
       });
       var targetCover = this.innerCover.filter(function (item) {
-        return item._id === _this4.selectedCoverId;
+        return item._id === _this3.selectedCoverId;
       })[0];
       var data = {
         cover: targetCover.url,
@@ -270,7 +272,7 @@ var _default = {
         data: data,
         success: function success(res) {
           data._id = res.result.id;
-          _this4.goAccountList(data);
+          _this3.goAccountList(data);
           uni.hideLoading();
         }
       });
@@ -285,7 +287,7 @@ var _default = {
     },
     // 上传封面图片
     uploadCover: function uploadCover() {
-      var _this5 = this;
+      var _this4 = this;
       uni.chooseImage({
         count: 1,
         success: function success(chooseImageRes) {
@@ -295,7 +297,7 @@ var _default = {
             fileType: 'image',
             cloudPath: "".concat(Date.now(), ".").concat(filePath.split('.')[1]),
             success: function success(res) {
-              _this5.storeUrlToCloud(res.fileID);
+              _this4.storeUrlToCloud(res.fileID);
             },
             fail: function fail() {
               uni.showToast({
@@ -308,7 +310,7 @@ var _default = {
     },
     // 将上传封面图片的url存储至cover数据表
     storeUrlToCloud: function storeUrlToCloud(url) {
-      var _this6 = this;
+      var _this5 = this;
       uniCloud.callFunction({
         name: 'storeCoverUrl',
         data: {
@@ -317,7 +319,7 @@ var _default = {
           index: 0
         },
         success: function success(res) {
-          _this6.updateCoverList({
+          _this5.updateCoverList({
             index: 0,
             url: url,
             _id: res.result.id

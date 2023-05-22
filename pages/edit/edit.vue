@@ -79,12 +79,13 @@
 						accountTitle: this.accountName
 					},
 					success: (res) => {
-						this.storeEditAccount(null);
-						this.storeEditAccountIndex(-1);
+						// this.storeEditAccount(null);
+						// this.storeEditAccountIndex(-1);
 						uni.hideLoading();
-						uni.redirectTo({
-							url: '/pages/rowlist/rowlist'
-						})
+						uni.navigateBack();
+						// uni.redirectTo({
+						// 	url: '/pages/rowlist/rowlist'
+						// })
 					}
 				})
 			},
@@ -99,12 +100,13 @@
 						id: this.editAccount._id
 					},
 					success: (res) => {
-						this.storeEditAccount(null);
-						this.storeEditAccountIndex(-1);
+						// this.storeEditAccount(null);
+						// this.storeEditAccountIndex(-1);
 						uni.hideLoading();
-						uni.redirectTo({
-							url: '/pages/rowlist/rowlist'
-						})
+						uni.navigateBack();
+						// uni.redirectTo({
+						// 	url: '/pages/rowlist/rowlist'
+						// })
 					}
 				})
 			},
@@ -123,9 +125,10 @@
 			// 新建账本成功后更新账本列表并跳转到账本列表页
 			goAccountList(data){
 				this.updateAccountList(data);
-				uni.redirectTo({
-					url: '/pages/rowlist/rowlist'
-				});
+				uni.navigateBack();
+				// uni.redirectTo({
+				// 	url: '/pages/rowlist/rowlist'
+				// });
 			},
 			// 存储账本到account数据表
 			storeAccount(){

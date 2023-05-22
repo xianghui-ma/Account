@@ -152,8 +152,14 @@ var _default = {
   computed: _objectSpread({}, (0, _vuex.mapState)('rowListData', ['editAccount', 'editAccountIndex'])),
   methods: _objectSpread(_objectSpread({}, (0, _vuex.mapActions)('rowListData', ['storePaymentItem'])), {}, {
     getType: function getType(event) {
-      this.expend = event.target.id === 'expend';
-      this.income = event.target.id === 'income';
+      if (event.target.id === 'blog') {
+        uni.redirectTo({
+          url: '/pages/detail/detail'
+        });
+      } else {
+        this.expend = event.target.id === 'expend';
+        this.income = event.target.id === 'income';
+      }
     },
     storePayments: function storePayments() {
       uni.showLoading({

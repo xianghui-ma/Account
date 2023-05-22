@@ -17,11 +17,11 @@
 					<view class="addMark">+</view>
 					<view class="explain">创建一个新帐本</view>
 				</view>
-				<view class="accountContent" v-for="account in accountList" :key="account._id" :id="account._id">
-					<image :src="account.cover" mode="aspectFill" class="accountImg"/>
+				<view class="accountContent" v-for="account in accountList" :key="account._id" :id="account._id" @click="operateAccount">
+					<image :src="account.cover" mode="aspectFill" class="accountImg" id="payments"/>
 					<view class="description">
 						<text>{{account.accountTitle}}</text>
-						<text class="editIcon"></text>
+						<text class="editIcon" id="edit"></text>
 					</view>
 				</view>
 			</view>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-	import {mapState} from 'vuex';
+	import {mapState, mapActions} from 'vuex';
 	export default {
 		name: 'columnlist',
 		computed: {
@@ -42,13 +42,40 @@
 			}
 		},
 		methods: {
+			...mapActions('rowListData', ['storeEditAccount', 'storeEditAccountIndex']),
+			operateAccount(e){
+				this.storeEditAccount(this.accountList.filter((item, index)=>{
+					if(item._id === e.currentTarget.id){
+						this.storeEditAccountIndex(index);
+						return true;
+					}
+				})[0]);
+				switch(e.target.id){
+					case 'payments':
+						this.gotoPayments();
+						break;
+					case 'edit':
+						this.gotoEdit();
+						break;
+				}
+			},
+			onShow(){
+				this.storeEditAccount(null);
+				this.storeEditAccountIndex(-1);
+			},
+			// 跳转到增添收支页面
+			gotoPayments(){
+				uni.navigateTo({
+					url: '/pages/payments/payments'
+				})
+			},
 			gotoRowlist(){
 				uni.redirectTo({
 					url: '/pages/rowlist/rowlist'
 				})
 			},
 			gotoEdit(){
-				uni.redirectTo({
+				uni.navigateTo({
 					url: '/pages/edit/edit'
 				})
 			}
