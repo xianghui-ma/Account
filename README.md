@@ -8,22 +8,22 @@
 ```
 cover 账本封面数据表，用于存储用户的账本封面信息
 	-_id
-	-openid
-	-url	封面url
-	-index	封面标识，-1为内置封面，0为用户上传的封面
+	-openid<string>
+	-url<string>	封面url
+	-index<int>		封面标识，-1为内置封面，0为用户上传的封面
 ```
 
 ```
 account 账本数据表，用于存储账本信息
 	-_id
-	-openid
-	-cover			账本封面url
-	-accountTitle	账本名
-	-date			账本的创建时间
-	-itemList		收支项目列表
-		-itemName	收支项目名
-		-money		收支金额
-		-note		收支备注
+	-openid<string>
+	-cover<string>			账本封面url
+	-accountTitle<string>	账本名
+	-date<string>			账本的创建时间
+	-itemList<array>		收支项目列表
+		-paymentName		收支项目名
+		-money				收支金额
+		-note				收支备注
 ```
 
 ### 前后端联调关键点
