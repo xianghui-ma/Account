@@ -1,7 +1,7 @@
 <template>
 	<view class="detail" :style="{backgroundImage: `url(${editAccount.cover})`}">
 		<view class="total">
-			<text>总花费(元)\n60</text>
+			<text>总花费(元)\n{{totalPayments.total}}</text>
 		</view>
 		<view class="listArea">
 			<view>
@@ -35,7 +35,9 @@
 				get(){
 					let income = 0;
 					let outcome = 0;
+					let total = 0;
 					this.editAccount.itemList.forEach((item)=>{
+						total += item.money;
 						if(item.money >= 0){
 							income += item.money;
 						}else{
@@ -44,7 +46,8 @@
 					});
 					return {
 						income,
-						outcome
+						outcome,
+						total
 					}
 				}
 			}
@@ -53,6 +56,11 @@
 			return {
 				
 			};
+		},
+		onLoad() {
+			uni.setNavigationBarTitle({
+				title: this.editAccount.accountTitle
+			})
 		},
 		methods: {
 			gotoProportion(){

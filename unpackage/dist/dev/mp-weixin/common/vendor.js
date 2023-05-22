@@ -17365,7 +17365,7 @@ var _default = {
   }, {
     "path": "pages/detail/detail",
     "style": {
-      "navigationBarTitleText": "江财一日游",
+      "navigationBarTitleText": "",
       "enablePullDownRefresh": false
     }
   }, {

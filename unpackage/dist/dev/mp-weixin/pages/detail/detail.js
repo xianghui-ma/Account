@@ -167,7 +167,9 @@ var _default = {
       get: function get() {
         var income = 0;
         var outcome = 0;
+        var total = 0;
         this.editAccount.itemList.forEach(function (item) {
+          total += item.money;
           if (item.money >= 0) {
             income += item.money;
           } else {
@@ -176,13 +178,19 @@ var _default = {
         });
         return {
           income: income,
-          outcome: outcome
+          outcome: outcome,
+          total: total
         };
       }
     }
   }),
   data: function data() {
     return {};
+  },
+  onLoad: function onLoad() {
+    uni.setNavigationBarTitle({
+      title: this.editAccount.accountTitle
+    });
   },
   methods: {
     gotoProportion: function gotoProportion() {

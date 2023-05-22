@@ -54,6 +54,11 @@
 				})
 			}
 		},
+		onLoad() {
+			uni.setNavigationBarTitle({
+				title: this.editAccount.accountTitle
+			})
+		},
 		data() {
 			return {
 				expend: true,

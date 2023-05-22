@@ -179,6 +179,11 @@ var _default = {
       });
     }
   }),
+  onLoad: function onLoad() {
+    uni.setNavigationBarTitle({
+      title: this.editAccount.accountTitle
+    });
+  },
   data: function data() {
     return {
       expend: true,
