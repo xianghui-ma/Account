@@ -1,102 +1,43 @@
 <template>
 	<view class="proportion">
 		<view class="title">
-			<text>2023-05-17</text>
-			<text>支出10元</text>
-			<text>收入50元</text>
+			<text>{{editAccount.date.split('T')[0]}}</text>
+			<text>支出{{totalPayments.outcome * -1}}元</text>
+			<text>收入{{totalPayments.income}}元</text>
 		</view>
 		<view class="list">
-			<view>
-				<text>早餐111</text>
-				<text>-10</text>
-			</view>
-			<view>
-				<text>早餐222</text>
-				<text>-10</text>
-			</view>
-			<view>
-				<text>早餐</text>
-				<text>-10</text>
-			</view>
-			<view>
-				<text>早餐</text>
-				<text>-10</text>
-			</view>
-			<view>
-				<text>早餐</text>
-				<text>-10</text>
-			</view>
-			<view>
-				<text>早餐</text>
-				<text>-10</text>
-			</view>
-			<view>
-				<text>早餐</text>
-				<text>-10</text>
-			</view>
-			<view>
-				<text>早餐</text>
-				<text>-10</text>
-			</view>
-			<view>
-				<text>早餐</text>
-				<text>-10</text>
-			</view>
-			<view>
-				<text>早餐</text>
-				<text>-10</text>
-			</view>
-			<view>
-				<text>早餐</text>
-				<text>-10</text>
-			</view>
-			<view>
-				<text>早餐</text>
-				<text>-10</text>
-			</view>
-			<view>
-				<text>早餐</text>
-				<text>-10</text>
-			</view>
-			<view>
-				<text>早餐</text>
-				<text>-10</text>
-			</view>
-			<view>
-				<text>早餐</text>
-				<text>-10</text>
-			</view>
-			<view>
-				<text>早餐</text>
-				<text>-10</text>
-			</view>
-			<view>
-				<text>早餐</text>
-				<text>-10</text>
-			</view>
-			<view>
-				<text>早餐</text>
-				<text>-10</text>
-			</view>
-			<view>
-				<text>早餐</text>
-				<text>-10</text>
-			</view>
-			<view>
-				<text>早餐</text>
-				<text>-10</text>
-			</view>
-			<view>
-				<text>早餐000</text>
-				<text>-10</text>
+			<view v-for="(item, index) in editAccount.itemList" :key="index">
+				<text>{{item.paymentName}}</text>
+				<text>{{item.money}}</text>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import {mapState} from 'vuex';
 	export default {
 		name: 'proportion',
+		computed: {
+			...mapState('rowListData', ['editAccount']),
+			totalPayments: {
+				get(){
+					let income = 0;
+					let outcome = 0;
+					this.editAccount.itemList.forEach((item)=>{
+						if(item.money >= 0){
+							income += item.money;
+						}else{
+							outcome += item.money;
+						}
+					});
+					return {
+						income,
+						outcome
+					}
+				}
+			}
+		},
 		data() {
 			return {
 				

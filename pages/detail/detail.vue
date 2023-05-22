@@ -1,26 +1,26 @@
 <template>
-	<view class="detail" :style="{backgroundImage: `url(https://mp-931dc76a-090b-4f2c-809b-bafd045c55e6.cdn.bspapp.com/cloudstorage/1cbb2bcc-82bb-4abe-9c4e-9a7acee5e9b1.png)`}">
+	<view class="detail" :style="{backgroundImage: `url(${editAccount.cover})`}">
 		<view class="total">
 			<text>总花费(元)\n60</text>
 		</view>
 		<view class="listArea">
 			<view>
-				<view class="date">2023-05-17</view>
+				<view class="date">{{editAccount.date.split('T')[0]}}</view>
 				<view class="totalmoney">
-					<text class="income">支出(元)\n-110</text>
-					<text class="outcome">收入(元)\n+50</text>
+					<text class="income">收入(元)\n{{totalPayments.income}}</text>
+					<text class="outcome">支出(元)\n{{totalPayments.outcome}}</text>
 				</view>
 				<view class="list">
-					<view v-for="item in paymentList">
-						<text>{{item.aymentName}}</text>
-						<text>-10</text>
+					<view v-for="(item, index) in editAccount.itemList.slice(0, 7)" :key="index">
+						<text>{{item.paymentName}}</text>
+						<text>{{item.money}}</text>
 					</view>
-					<button class="more">
+					<button class="more" v-show="editAccount.itemList.length > 8" @click="gotoProportion">
 						显示全部
 					</button>
 				</view>
 			</view>
-			<text class="addIcon"></text>
+			<text class="addIcon" @click="gotoPayments"></text>
 		</view>
 	</view>
 </template>
@@ -30,15 +30,41 @@
 	export default {
 		name: 'detail',
 		computed: {
-			...mapState('paymentsData', ['paymentList']),
+			...mapState('rowListData', ['editAccount']),
+			totalPayments: {
+				get(){
+					let income = 0;
+					let outcome = 0;
+					this.editAccount.itemList.forEach((item)=>{
+						if(item.money >= 0){
+							income += item.money;
+						}else{
+							outcome += item.money;
+						}
+					});
+					return {
+						income,
+						outcome
+					}
+				}
+			}
 		},
 		data() {
 			return {
 				
 			};
 		},
-		created() {
-			console.log(this.paymentList);
+		methods: {
+			gotoProportion(){
+				uni.redirectTo({
+					url: '/pages/proportion/proportion'
+				})
+			},
+			gotoPayments(){
+				uni.redirectTo({
+					url: '/pages/payments/payments'
+				})
+			}
 		}
 	}
 </script>

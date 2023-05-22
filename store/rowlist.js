@@ -12,6 +12,9 @@ export default{
 		storeEditAccountIndex(context, data){
 		    context.commit('storeEditAccountIndex', data);
 		},
+		storePaymentItem(context, data){
+		    context.commit('storePaymentItem', data);
+		},
     },
     mutations: {
 		storeEditAccount(preState, data){
@@ -20,5 +23,8 @@ export default{
         storeEditAccountIndex(preState, data){
             preState.editAccountIndex = data;
         },
+		storePaymentItem(preState, data){
+		    preState.editAccount.itemList.unshift(data);
+		},
     },
 }

@@ -174,9 +174,8 @@ var _default = {
           openid: this.openId
         },
         success: function success(res) {
-          uni.hideLoading();
-          console.log(res.result);
           _this.storeAccountList(res.result);
+          uni.hideLoading();
         }
       });
     },

@@ -18948,6 +18948,9 @@ var _default = {
     },
     storeEditAccountIndex: function storeEditAccountIndex(context, data) {
       context.commit('storeEditAccountIndex', data);
+    },
+    storePaymentItem: function storePaymentItem(context, data) {
+      context.commit('storePaymentItem', data);
     }
   },
   mutations: {
@@ -18956,6 +18959,9 @@ var _default = {
     },
     storeEditAccountIndex: function storeEditAccountIndex(preState, data) {
       preState.editAccountIndex = data;
+    },
+    storePaymentItem: function storePaymentItem(preState, data) {
+      preState.editAccount.itemList.unshift(data);
     }
   }
 };

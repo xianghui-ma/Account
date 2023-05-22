@@ -150,7 +150,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 var _default = {
   name: 'payments',
   computed: _objectSpread({}, (0, _vuex.mapState)('rowListData', ['editAccount', 'editAccountIndex'])),
-  methods: _objectSpread(_objectSpread({}, (0, _vuex.mapActions)('paymentsData', ['storePaymentItem'])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0, _vuex.mapActions)('rowListData', ['storePaymentItem'])), {}, {
     getType: function getType(event) {
       this.expend = event.target.id === 'expend';
       this.income = event.target.id === 'income';

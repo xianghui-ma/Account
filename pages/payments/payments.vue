@@ -25,7 +25,7 @@
 			...mapState('rowListData', ['editAccount', 'editAccountIndex']),
 		},
 		methods: {
-			...mapActions('paymentsData', ['storePaymentItem']),
+			...mapActions('rowListData', ['storePaymentItem']),
 			getType(event){
 				this.expend = event.target.id === 'expend';
 				this.income = event.target.id === 'income';

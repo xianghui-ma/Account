@@ -37,9 +37,8 @@
 						openid: this.openId
 					},
 					success: (res) => {
-						uni.hideLoading();
-						console.log(res.result);
 						this.storeAccountList(res.result);
+						uni.hideLoading();
 					}
 				});
 			},
