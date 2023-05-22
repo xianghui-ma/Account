@@ -27,40 +27,14 @@
 
 <script>
 	import {mapState} from 'vuex';
+	import {detailAndProportion} from '../../mixin.js';
 	export default {
 		name: 'detail',
-		computed: {
-			...mapState('rowListData', ['editAccount']),
-			totalPayments: {
-				get(){
-					let income = 0;
-					let outcome = 0;
-					let total = 0;
-					this.editAccount.itemList.forEach((item)=>{
-						total += item.money;
-						if(item.money >= 0){
-							income += item.money;
-						}else{
-							outcome += item.money;
-						}
-					});
-					return {
-						income,
-						outcome,
-						total
-					}
-				}
-			}
-		},
+		mixins: [detailAndProportion],
 		data() {
 			return {
 				
 			};
-		},
-		onLoad() {
-			uni.setNavigationBarTitle({
-				title: this.editAccount.accountTitle
-			})
 		},
 		methods: {
 			gotoProportion(){

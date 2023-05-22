@@ -18877,8 +18877,8 @@ var _default = {
   namespaced: true,
   state: {
     openId: '',
-    appId: 'wx2b482e8d9a92ad01',
-    appSecret: '981dd17896416889f510c7c9eda2d48a',
+    appId: '',
+    appSecret: '',
     innerCover: null,
     accountList: null
   },
@@ -19070,6 +19070,101 @@ var _default = {
   }
 };
 exports.default = _default;
+
+/***/ }),
+/* 115 */
+/*!***************************!*\
+  !*** F:/Account/mixin.js ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.rowlistAndColumnlist = exports.detailAndProportion = void 0;
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+var _vuex = __webpack_require__(/*! vuex */ 47);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+// rowlist和columnlist组件的共享功能
+var rowlistAndColumnlist = {
+  onShow: function onShow() {
+    this.storeEditAccount(null);
+    this.storeEditAccountIndex(-1);
+  },
+  computed: _objectSpread({}, (0, _vuex.mapState)('publicData', ['accountList'])),
+  methods: _objectSpread(_objectSpread({}, (0, _vuex.mapActions)('rowListData', ['storeEditAccount', 'storeEditAccountIndex'])), {}, {
+    operateAccount: function operateAccount(e) {
+      var _this = this;
+      this.storeEditAccount(this.accountList.filter(function (item, index) {
+        if (item._id === e.currentTarget.id) {
+          _this.storeEditAccountIndex(index);
+          return true;
+        }
+      })[0]);
+      switch (e.target.id) {
+        case 'payments':
+          this.gotoPayments();
+          break;
+        case 'edit':
+          this.gotoEdit();
+          break;
+      }
+    },
+    // 跳转到编辑页
+    gotoEdit: function gotoEdit() {
+      uni.navigateTo({
+        url: '/pages/edit/edit'
+      });
+    },
+    // 跳转到增添收支页面
+    gotoPayments: function gotoPayments() {
+      uni.navigateTo({
+        url: '/pages/payments/payments'
+      });
+    }
+  })
+};
+
+// detail和proportion组件的共享功能
+exports.rowlistAndColumnlist = rowlistAndColumnlist;
+var detailAndProportion = {
+  onLoad: function onLoad() {
+    console.log('onLoad加载');
+    uni.setNavigationBarTitle({
+      title: this.editAccount.accountTitle
+    });
+  },
+  computed: _objectSpread(_objectSpread({}, (0, _vuex.mapState)('rowListData', ['editAccount'])), {}, {
+    totalPayments: {
+      get: function get() {
+        var income = 0;
+        var outcome = 0;
+        var total = 0;
+        this.editAccount.itemList.forEach(function (item) {
+          total += item.money;
+          if (item.money >= 0) {
+            income += item.money;
+          } else {
+            outcome += item.money;
+          }
+        });
+        return {
+          income: income,
+          outcome: outcome,
+          total: total
+        };
+      }
+    }
+  })
+};
+exports.detailAndProportion = detailAndProportion;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ })
 ]]);

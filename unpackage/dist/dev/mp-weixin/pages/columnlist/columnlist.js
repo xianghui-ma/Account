@@ -162,54 +162,86 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _vuex = __webpack_require__(/*! vuex */ 47);
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+var _mixin = __webpack_require__(/*! ../../mixin.js */ 115);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// import {mapState, mapActions} from 'vuex';
 var _default = (0, _defineProperty2.default)({
+  mixins: [_mixin.rowlistAndColumnlist],
   name: 'columnlist',
-  computed: _objectSpread({}, (0, _vuex.mapState)('publicData', ['accountList'])),
+  // computed: {
+  // 	...mapState('publicData', ['accountList']),
+  // },
   data: function data() {
     return {};
   },
-  methods: _objectSpread(_objectSpread({}, (0, _vuex.mapActions)('rowListData', ['storeEditAccount', 'storeEditAccountIndex'])), {}, {
-    operateAccount: function operateAccount(e) {
-      var _this = this;
-      this.storeEditAccount(this.accountList.filter(function (item, index) {
-        if (item._id === e.currentTarget.id) {
-          _this.storeEditAccountIndex(index);
-          return true;
-        }
-      })[0]);
-      switch (e.target.id) {
-        case 'payments':
-          this.gotoPayments();
-          break;
-        case 'edit':
-          this.gotoEdit();
-          break;
-      }
-    },
-    onShow: function onShow() {
-      this.storeEditAccount(null);
-      this.storeEditAccountIndex(-1);
-    },
+  // onShow(){
+  // 	this.storeEditAccount(null);
+  // 	this.storeEditAccountIndex(-1);
+  // },
+  methods: {
+    // ...mapActions('rowListData', ['storeEditAccount', 'storeEditAccountIndex']),
+    // operateAccount(e){
+    // 	this.storeEditAccount(this.accountList.filter((item, index)=>{
+    // 		if(item._id === e.currentTarget.id){
+    // 			this.storeEditAccountIndex(index);
+    // 			return true;
+    // 		}
+    // 	})[0]);
+    // 	switch(e.target.id){
+    // 		case 'payments':
+    // 			this.gotoPayments();
+    // 			break;
+    // 		case 'edit':
+    // 			this.gotoEdit();
+    // 			break;
+    // 	}
+    // },
     // 跳转到增添收支页面
-    gotoPayments: function gotoPayments() {
-      uni.navigateTo({
-        url: '/pages/payments/payments'
-      });
-    },
+    // gotoPayments(){
+    // 	uni.navigateTo({
+    // 		url: '/pages/payments/payments'
+    // 	})
+    // },
     gotoRowlist: function gotoRowlist() {
       uni.redirectTo({
         url: '/pages/rowlist/rowlist'
       });
-    },
-    gotoEdit: function gotoEdit() {
-      uni.navigateTo({
-        url: '/pages/edit/edit'
-      });
-    }
-  })
+    } // gotoEdit(){
+    // 	uni.navigateTo({
+    // 		url: '/pages/edit/edit'
+    // 	})
+    // }
+  }
 }, "data", function data() {
   return {};
 });

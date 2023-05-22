@@ -79,13 +79,8 @@
 						accountTitle: this.accountName
 					},
 					success: (res) => {
-						// this.storeEditAccount(null);
-						// this.storeEditAccountIndex(-1);
 						uni.hideLoading();
 						uni.navigateBack();
-						// uni.redirectTo({
-						// 	url: '/pages/rowlist/rowlist'
-						// })
 					}
 				})
 			},
@@ -100,13 +95,8 @@
 						id: this.editAccount._id
 					},
 					success: (res) => {
-						// this.storeEditAccount(null);
-						// this.storeEditAccountIndex(-1);
 						uni.hideLoading();
 						uni.navigateBack();
-						// uni.redirectTo({
-						// 	url: '/pages/rowlist/rowlist'
-						// })
 					}
 				})
 			},
@@ -126,9 +116,6 @@
 			goAccountList(data){
 				this.updateAccountList(data);
 				uni.navigateBack();
-				// uni.redirectTo({
-				// 	url: '/pages/rowlist/rowlist'
-				// });
 			},
 			// 存储账本到account数据表
 			storeAccount(){

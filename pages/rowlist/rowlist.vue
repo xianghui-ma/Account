@@ -26,33 +26,35 @@
 </template>
 
 <script>
-	import {mapState, mapActions} from 'vuex';
+	// import {mapState, mapActions} from 'vuex';
+	import {rowlistAndColumnlist} from '../../mixin.js';
 	export default {
-		computed: {
-			...mapState('publicData', ['accountList']),
-		},
+		mixins: [rowlistAndColumnlist],
+		// computed: {
+		// 	...mapState('publicData', ['accountList']),
+		// },
+		// onShow(){
+		// 	this.storeEditAccount(null);
+		// 	this.storeEditAccountIndex(-1);
+		// },
 		methods: {
-			...mapActions('rowListData', ['storeEditAccount', 'storeEditAccountIndex']),
-			operateAccount(e){
-				this.storeEditAccount(this.accountList.filter((item, index)=>{
-					if(item._id === e.currentTarget.id){
-						this.storeEditAccountIndex(index);
-						return true;
-					}
-				})[0]);
-				switch(e.target.id){
-					case 'payments':
-						this.gotoPayments();
-						break;
-					case 'edit':
-						this.gotoEdit();
-						break;
-				}
-			},
-			onShow(){
-				this.storeEditAccount(null);
-				this.storeEditAccountIndex(-1);
-			},
+			// ...mapActions('rowListData', ['storeEditAccount', 'storeEditAccountIndex']),
+			// operateAccount(e){
+			// 	this.storeEditAccount(this.accountList.filter((item, index)=>{
+			// 		if(item._id === e.currentTarget.id){
+			// 			this.storeEditAccountIndex(index);
+			// 			return true;
+			// 		}
+			// 	})[0]);
+			// 	switch(e.target.id){
+			// 		case 'payments':
+			// 			this.gotoPayments();
+			// 			break;
+			// 		case 'edit':
+			// 			this.gotoEdit();
+			// 			break;
+			// 	}
+			// },
 			// 跳转到列列表页面
 			gotoColumnlist(){
 				uni.redirectTo({
@@ -60,17 +62,17 @@
 				})
 			},
 			// 跳转到编辑页
-			gotoEdit(){
-				uni.navigateTo({
-					url: '/pages/edit/edit'
-				})
-			},
+			// gotoEdit(){
+			// 	uni.navigateTo({
+			// 		url: '/pages/edit/edit'
+			// 	})
+			// },
 			// 跳转到增添收支页面
-			gotoPayments(){
-				uni.navigateTo({
-					url: '/pages/payments/payments'
-				})
-			}
+			// gotoPayments(){
+			// 	uni.navigateTo({
+			// 		url: '/pages/payments/payments'
+			// 	})
+			// }
 		},
 		data() {
 			return {

@@ -197,13 +197,8 @@ var _default = {
           accountTitle: this.accountName
         },
         success: function success(res) {
-          // this.storeEditAccount(null);
-          // this.storeEditAccountIndex(-1);
           uni.hideLoading();
           uni.navigateBack();
-          // uni.redirectTo({
-          // 	url: '/pages/rowlist/rowlist'
-          // })
         }
       });
     },
@@ -218,13 +213,8 @@ var _default = {
           id: this.editAccount._id
         },
         success: function success(res) {
-          // this.storeEditAccount(null);
-          // this.storeEditAccountIndex(-1);
           uni.hideLoading();
           uni.navigateBack();
-          // uni.redirectTo({
-          // 	url: '/pages/rowlist/rowlist'
-          // })
         }
       });
     },
@@ -245,9 +235,6 @@ var _default = {
     goAccountList: function goAccountList(data) {
       this.updateAccountList(data);
       uni.navigateBack();
-      // uni.redirectTo({
-      // 	url: '/pages/rowlist/rowlist'
-      // });
     },
     // 存储账本到account数据表
     storeAccount: function storeAccount() {
