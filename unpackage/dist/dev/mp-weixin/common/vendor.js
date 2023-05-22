@@ -17588,13 +17588,15 @@ var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 25));
 var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 47));
 var _publicData = _interopRequireDefault(__webpack_require__(/*! ./publicData.js */ 48));
 var _rowlist = _interopRequireDefault(__webpack_require__(/*! ./rowlist.js */ 49));
+var _payments = _interopRequireDefault(__webpack_require__(/*! ./payments.js */ 114));
 _vue.default.use(_vuex.default);
 
 // 创建store
 var _default = new _vuex.default.Store({
   modules: {
     publicData: _publicData.default,
-    rowListData: _rowlist.default
+    rowListData: _rowlist.default,
+    paymentsData: _payments.default
   }
 });
 exports.default = _default;
@@ -18954,6 +18956,110 @@ var _default = {
     },
     storeEditAccountIndex: function storeEditAccountIndex(preState, data) {
       preState.editAccountIndex = data;
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */,
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */,
+/* 77 */,
+/* 78 */,
+/* 79 */,
+/* 80 */,
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */,
+/* 87 */,
+/* 88 */,
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */
+/*!************************************!*\
+  !*** F:/Account/store/payments.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+// 来源于payments组件的共享数据
+var _default = {
+  namespaced: true,
+  state: {
+    paymentList: []
+  },
+  actions: {
+    storePaymentItem: function storePaymentItem(context, data) {
+      context.commit('storePaymentItem', data);
+    },
+    storePayments: function storePayments(context, data) {
+      context.commit('storePayments', data);
+    }
+  },
+  mutations: {
+    storePaymentItem: function storePaymentItem(preState, data) {
+      preState.paymentList.unshift(data);
+    },
+    storePayments: function storePayments(preState, data) {
+      preState.paymentList = data;
     }
   }
 };

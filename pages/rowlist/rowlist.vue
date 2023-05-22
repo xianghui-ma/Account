@@ -34,17 +34,17 @@
 		methods: {
 			...mapActions('rowListData', ['storeEditAccount', 'storeEditAccountIndex']),
 			operateAccount(e){
+				this.storeEditAccount(this.accountList.filter((item, index)=>{
+					if(item._id === e.currentTarget.id){
+						this.storeEditAccountIndex(index);
+						return true;
+					}
+				})[0]);
 				switch(e.target.id){
 					case 'payments':
 						this.gotoPayments();
 						break;
 					case 'edit':
-						this.storeEditAccount(this.accountList.filter((item, index)=>{
-							if(item._id === e.currentTarget.id){
-								this.storeEditAccountIndex(index);
-								return true;
-							}
-						})[0]);
 						this.gotoEdit();
 						break;
 				}

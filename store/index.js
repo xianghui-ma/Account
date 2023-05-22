@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 
 import publicData from "./publicData.js";
 import rowListData from "./rowlist.js";
+import paymentsData from "./payments.js";
 
 Vue.use(Vuex);
 
@@ -10,6 +11,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     modules: {
         publicData,
-		rowListData
+		rowListData,
+		paymentsData
     }
 });

@@ -3,61 +3,64 @@
 		<view class="mes">
 			<text id="expend" @click="getType" v-bind:class="expend && 'activeExpend'">支出</text>
 			<text id="income" @click="getType" v-bind:class="income && 'activeIncome'">收入</text>
-			<picker mode="date" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">选择日期</picker>
 		</view>
 		<view class="name">
-			<input type="text" placeholder="收支名">
+			<input type="text" placeholder="收支名" v-model="paymentName">
 		</view>
 		<view class="inputNum">
-			<input type="text" placeholder="0.0元">
+			<input type="text" placeholder="0.0元" v-model="money">
 		</view>
 		<view class="note">
-			<textarea placeholder="备注..."></textarea>
+			<textarea placeholder="备注..." v-model="note"></textarea>
 		</view>
-		<button type="primary">保存</button>
+		<button type="primary" @click="storePayments">保存</button>
 	</view>
 </template>
 
 <script>
+	import {mapState, mapActions} from 'vuex';
 	export default {
 		name: 'payments',
 		computed: {
-			startDate() {
-				return this.getDate('start');
-			},
-			endDate() {
-				return this.getDate('end');
-			}
+			...mapState('rowListData', ['editAccount', 'editAccountIndex']),
 		},
 		methods: {
-			bindDateChange: function(e) {
-				this.date = e.detail.value
-			},
-			getDate(type) {
-				const date = new Date();
-				let year = date.getFullYear();
-				let month = date.getMonth() + 1;
-				let day = date.getDate();
-	
-				if (type === 'start') {
-					year = year - 60;
-				} else if (type === 'end') {
-					year = year + 2;
-				}
-				month = month > 9 ? month : '0' + month;
-				day = day > 9 ? day : '0' + day;
-				return `${year}-${month}-${day}`;
-			},
+			...mapActions('paymentsData', ['storePaymentItem']),
 			getType(event){
 				this.expend = event.target.id === 'expend';
 				this.income = event.target.id === 'income';
+			},
+			storePayments(){
+				uni.showLoading({
+					title: "保存收支",
+					mask: true
+				});
+				let data = {
+					id: this.editAccount._id,
+					paymentName: this.paymentName,
+					money: this.expend ? parseFloat(this.money) * -1 : parseFloat(this.money),
+					note: this.note
+				}
+				this.storePaymentItem(data);
+				uniCloud.callFunction({
+					name: 'storePayments',
+					data,
+					success: (res) => {
+						uni.hideLoading();
+						uni.redirectTo({
+							url: '/pages/detail/detail'
+						})
+					}
+				})
 			}
 		},
 		data() {
 			return {
 				expend: true,
 				income: false,
-				date: ''
+				paymentName: '',
+				money: '',
+				note: ''
 			};
 		}
 	}

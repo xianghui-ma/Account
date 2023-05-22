@@ -31,23 +31,8 @@
 		},
 		"itemList": {
 			"description": "收支项目列表",
-			"bsonType": "object",
-			"properties": {
-				"itemName": {
-					"description": "收支项目名",
-					"bsonType": "string",
-					"trim": "both"
-				},
-				"money": {
-					"description": "收支金额",
-					"bsonType": "double"
-				},
-				"note": {
-					"description": "收支备注",
-					"bsonType": "string",
-					"trim": "both"
-				}
-			}
+			"bsonType": "array",
+			"arrayType": "object"
 		}
 	}
 }

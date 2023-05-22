@@ -136,74 +136,61 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(uni, uniCloud) {
 
-
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+var _vuex = __webpack_require__(/*! vuex */ 47);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var _default = {
   name: 'payments',
-  computed: {
-    startDate: function startDate() {
-      return this.getDate('start');
-    },
-    endDate: function endDate() {
-      return this.getDate('end');
-    }
-  },
-  methods: {
-    bindDateChange: function bindDateChange(e) {
-      this.date = e.detail.value;
-    },
-    getDate: function getDate(type) {
-      var date = new Date();
-      var year = date.getFullYear();
-      var month = date.getMonth() + 1;
-      var day = date.getDate();
-      if (type === 'start') {
-        year = year - 60;
-      } else if (type === 'end') {
-        year = year + 2;
-      }
-      month = month > 9 ? month : '0' + month;
-      day = day > 9 ? day : '0' + day;
-      return "".concat(year, "-").concat(month, "-").concat(day);
-    },
+  computed: _objectSpread({}, (0, _vuex.mapState)('rowListData', ['editAccount', 'editAccountIndex'])),
+  methods: _objectSpread(_objectSpread({}, (0, _vuex.mapActions)('paymentsData', ['storePaymentItem'])), {}, {
     getType: function getType(event) {
       this.expend = event.target.id === 'expend';
       this.income = event.target.id === 'income';
+    },
+    storePayments: function storePayments() {
+      uni.showLoading({
+        title: "保存收支",
+        mask: true
+      });
+      var data = {
+        id: this.editAccount._id,
+        paymentName: this.paymentName,
+        money: this.expend ? parseFloat(this.money) * -1 : parseFloat(this.money),
+        note: this.note
+      };
+      this.storePaymentItem(data);
+      uniCloud.callFunction({
+        name: 'storePayments',
+        data: data,
+        success: function success(res) {
+          uni.hideLoading();
+          uni.redirectTo({
+            url: '/pages/detail/detail'
+          });
+        }
+      });
     }
-  },
+  }),
   data: function data() {
     return {
       expend: true,
       income: false,
-      date: ''
+      paymentName: '',
+      money: '',
+      note: ''
     };
   }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/uni-cloud/dist/index.js */ 27)["default"]))
 
 /***/ }),
 

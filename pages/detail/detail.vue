@@ -11,32 +11,8 @@
 					<text class="outcome">收入(元)\n+50</text>
 				</view>
 				<view class="list">
-					<view>
-						<text>早餐</text>
-						<text>-10</text>
-					</view>
-					<view>
-						<text>早餐</text>
-						<text>-10</text>
-					</view>
-					<view>
-						<text>早餐</text>
-						<text>-10</text>
-					</view>
-					<view>
-						<text>早餐</text>
-						<text>-10</text>
-					</view>
-					<view>
-						<text>早餐</text>
-						<text>-10</text>
-					</view>
-					<view>
-						<text>早餐</text>
-						<text>-10</text>
-					</view>
-					<view>
-						<text>早餐</text>
+					<view v-for="item in paymentList">
+						<text>{{item.aymentName}}</text>
 						<text>-10</text>
 					</view>
 					<button class="more">
@@ -50,12 +26,19 @@
 </template>
 
 <script>
+	import {mapState} from 'vuex';
 	export default {
 		name: 'detail',
+		computed: {
+			...mapState('paymentsData', ['paymentList']),
+		},
 		data() {
 			return {
 				
 			};
+		},
+		created() {
+			console.log(this.paymentList);
 		}
 	}
 </script>

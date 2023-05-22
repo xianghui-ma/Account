@@ -142,7 +142,7 @@
 					openid: this.openId,
 					accountTitle: this.accountName,
 					date: new Date().toISOString(),
-					itemList: {}
+					itemList: []
 				};
 				uniCloud.callFunction({
 					name: 'storeAccount',

@@ -168,17 +168,17 @@ var _default = {
   methods: _objectSpread(_objectSpread({}, (0, _vuex.mapActions)('rowListData', ['storeEditAccount', 'storeEditAccountIndex'])), {}, {
     operateAccount: function operateAccount(e) {
       var _this = this;
+      this.storeEditAccount(this.accountList.filter(function (item, index) {
+        if (item._id === e.currentTarget.id) {
+          _this.storeEditAccountIndex(index);
+          return true;
+        }
+      })[0]);
       switch (e.target.id) {
         case 'payments':
           this.gotoPayments();
           break;
         case 'edit':
-          this.storeEditAccount(this.accountList.filter(function (item, index) {
-            if (item._id === e.currentTarget.id) {
-              _this.storeEditAccountIndex(index);
-              return true;
-            }
-          })[0]);
           this.gotoEdit();
           break;
       }
