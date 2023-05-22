@@ -29,7 +29,7 @@
 			...mapActions('rowListData', ['storePaymentItem']),
 			getType(event){
 				if(event.target.id === 'blog'){
-					uni.redirectTo({
+					uni.navigateTo({
 						url: '/pages/detail/detail'
 					})
 				}else{

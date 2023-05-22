@@ -64,7 +64,7 @@
 		},
 		methods: {
 			gotoProportion(){
-				uni.redirectTo({
+				uni.navigateTo({
 					url: '/pages/proportion/proportion'
 				})
 			},

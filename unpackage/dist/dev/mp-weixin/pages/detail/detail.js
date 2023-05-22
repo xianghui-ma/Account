@@ -194,7 +194,7 @@ var _default = {
   },
   methods: {
     gotoProportion: function gotoProportion() {
-      uni.redirectTo({
+      uni.navigateTo({
         url: '/pages/proportion/proportion'
       });
     },

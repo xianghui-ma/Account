@@ -153,7 +153,7 @@ var _default = {
   methods: _objectSpread(_objectSpread({}, (0, _vuex.mapActions)('rowListData', ['storePaymentItem'])), {}, {
     getType: function getType(event) {
       if (event.target.id === 'blog') {
-        uni.redirectTo({
+        uni.navigateTo({
           url: '/pages/detail/detail'
         });
       } else {
