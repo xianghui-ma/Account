@@ -63,10 +63,14 @@ Account						项目名
 
 #### 页面组件拆分
 
+<img src="https://raw.githubusercontent.com/xianghui-ma/staticImage/master/account01.png"/>
+
 #### 组件间及组件内交互逻辑设计
 
+<img src="https://raw.githubusercontent.com/xianghui-ma/staticImage/master/features.png"/>
+
 #### 云数据库设计
-#### 
+
 项目使用 `uniCloud` 提供的 `JSON` 格式的文档型数据库。其中 `_id` 是默认自带且不可删除的字段，`openid` 是用户标识，每一个微信用户都有一个独一无二的 `openid`。
 
 ```
@@ -90,17 +94,6 @@ account 账本数据表，用于存储账本信息
 		-note				收支备注
 ```
 
-#### 云存储管理
-***
+#### 云存储与云函数设计
 
-#### 云函数设计
-***
-
-### 前后端联调关键点
-***
-
-#### 本地封面选择如何与云端图片URL对应
-
-用户在本地选择一张图片作为封面，那么如何映射到所选图片在云端的URL呢？
-
-我们将封面数据表中的 `_id` 作为图片的 `id`，用户选择图片时便获取所选图片的 `_id`，然后通过`所选图片的_id + openid` 的方式查询所选图片在云端的URL
+<img src="https://raw.githubusercontent.com/xianghui-ma/staticImage/master/cloudfun.png"/>

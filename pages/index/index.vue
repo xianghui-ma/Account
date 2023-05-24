@@ -18,17 +18,31 @@
 				handler(){
 					this.initAccountList();
 				}
-			}
+			},
+			
 		},
 		computed: {
 			...mapState('publicData', ['appId', 'appSecret', 'openId'])
 		},
 		onLoad() {
-			this.getOpenId();
+			// this.getOpenId();
+			this.getAppSecret();
 			this.getInnerCover();
 		},
 		methods: {
 			...mapActions('publicData', ['storeOpenId', 'storeInnerCover', 'storeAccountList']),
+			getAppSecret(){
+				uni.showLoading({
+					title: '配置用户数据',
+					mask: true
+				});
+				uniCloud.callFunction({
+					name: 'getOpenid',
+					success: (res) => {
+						this.getOpenId(res.result);
+					}
+				})
+			},
 			// 初始化用户账本列表
 			initAccountList(){
 				uniCloud.callFunction({
@@ -50,7 +64,6 @@
 						openid: this.openId
 					}
 				}).then((res)=>{
-					console.log(res.result);
 					this.storeInnerCover(res.result);
 				});
 			},
@@ -61,11 +74,7 @@
 				});
 			},
 			// 自动获取openid登录
-			getOpenId(){
-				uni.showLoading({
-					title: '配置用户数据',
-					mask: true
-				});
+			getOpenId(secret){
 				uni.getStorage({
 					key: 'openId',
 					success: (res)=>{
@@ -77,7 +86,7 @@
 							"onlyAuthorize": true,
 							success: (event)=>{
 								uni.request({
-								    url: `https://api.weixin.qq.com/sns/jscode2session?appid=${this.appId}&secret=${this.appSecret}&js_code=${event.code}&grant_type=authorization_code`,
+								    url: `https://api.weixin.qq.com/sns/jscode2session?appid=${this.appId}&secret=${secret}&js_code=${event.code}&grant_type=authorization_code`,
 								    success: (res)=>{
 										this.storeOpenId(res.data.openid);
 										this.cacheOpenId();

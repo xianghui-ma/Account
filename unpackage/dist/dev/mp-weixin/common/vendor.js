@@ -9958,6 +9958,7 @@ var k = "development" === "development",
   E = b({
     "address": [
         "127.0.0.1",
+        "198.18.0.1",
         "10.10.4.134"
     ],
     "debugPort": 9000,
@@ -17588,7 +17589,7 @@ var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 25));
 var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 47));
 var _publicData = _interopRequireDefault(__webpack_require__(/*! ./publicData.js */ 48));
 var _rowlist = _interopRequireDefault(__webpack_require__(/*! ./rowlist.js */ 49));
-var _payments = _interopRequireDefault(__webpack_require__(/*! ./payments.js */ 114));
+var _payments = _interopRequireDefault(__webpack_require__(/*! ./payments.js */ 50));
 _vue.default.use(_vuex.default);
 
 // 创建store
@@ -18878,7 +18879,6 @@ var _default = {
   state: {
     openId: '',
     appId: 'wx2b482e8d9a92ad01',
-    appSecret: '981dd17896416889f510c7c9eda2d48a',
     innerCover: null,
     accountList: null
   },
@@ -18968,71 +18968,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */,
-/* 85 */,
-/* 86 */,
-/* 87 */,
-/* 88 */,
-/* 89 */,
-/* 90 */,
-/* 91 */,
-/* 92 */,
-/* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */,
-/* 97 */,
-/* 98 */,
-/* 99 */,
-/* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */,
-/* 104 */,
-/* 105 */,
-/* 106 */,
-/* 107 */,
-/* 108 */,
-/* 109 */,
-/* 110 */,
-/* 111 */,
-/* 112 */,
-/* 113 */,
-/* 114 */
+/* 50 */
 /*!************************************!*\
   !*** F:/Account/store/payments.js ***!
   \************************************/
@@ -19072,7 +19008,21 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 115 */
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */
 /*!***************************!*\
   !*** F:/Account/mixin.js ***!
   \***************************/
